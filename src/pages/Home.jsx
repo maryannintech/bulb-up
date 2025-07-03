@@ -1,5 +1,5 @@
 import { ChoicesButton } from "../components/ChoicesButton";
-
+import { Link } from "react-router-dom";
 export function Home() {
   return (
     <>
@@ -18,18 +18,27 @@ export function Home() {
         </div>
         <div>
           <div className="home-choices mt-5 sm:mt-10">
-            <ChoicesButton
-              text="Start Quiz"
-              description={"Browse through the categories and begin!"}
-            />
-            <ChoicesButton
-              text="Surprise Me!"
-              description={"Try a random quiz from the deck"}
-            />
-            <ChoicesButton
-              text="Create your own"
-              description={"Make a quiz with your questions"}
-            />
+            <Link to={"/Category"}>
+              {" "}
+              <ChoicesButton
+                text="Start Quiz"
+                description={"Browse through the categories and begin!"}
+              />
+            </Link>
+            <Link to={"/Quiz"}>
+              {" "}
+              <ChoicesButton
+                text="Surprise Me!"
+                description={"Try a random quiz from the deck"}
+              />
+            </Link>
+
+            <Link to={"/CreateQuiz"}>
+              <ChoicesButton
+                text="Create your own"
+                description={"Make a quiz with your questions"}
+              />
+            </Link>
           </div>
         </div>
       </div>
