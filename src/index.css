@@ -22,4 +22,9 @@ body {
 
 h1 {
   text-align: center;
+  margin-top: 2rem;
+}
+
+.nav-bar-button {
+  @apply text-xl bg-[var(--blue-color)] w-full px-5 rounded-full cursor-pointer text-[var(--bg-color)];
 }
