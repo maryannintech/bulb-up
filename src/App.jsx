@@ -1,13 +1,22 @@
-import './App.css'
-
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
+import "./App.css";
+import { Layout } from "./Layout";
+import { Home } from "./pages/Home";
+import { Category } from "./pages/Category";
+import { CreateQuiz } from "./pages/CreateQuiz";
 
 function App() {
-
   return (
-    <>
-      <p className='text-2xl text-blue-400'>Bulb Up</p>
-    </>
-  )
+    <Router>
+      <Routes>
+        <Route element={<Layout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/Category" element={<Category />} />
+          <Route path="/CreateQuiz" element={<CreateQuiz />} />
+        </Route>
+      </Routes>
+    </Router>
+  );
 }
 
-export default App
+export default App;
