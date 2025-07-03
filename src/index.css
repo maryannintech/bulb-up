@@ -1,0 +1,21 @@
+/* Tailwind CSS v4 imports */
+@import "tailwindcss";
+
+/* Alternative for Tailwind CSS v3 (if you need to downgrade):
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+*/
+
+:root {
+  --bg-color: #f7f4ea;
+  --yellow-color: #e6b907;
+  --orange-color: #d97524;
+  --blue-color: #51919a;
+}
+
+/* Custom styles can be added below */
+body {
+  background-color: var(--bg-color);
+  font-family: "Josefin Sans", sans-serif;
+}
