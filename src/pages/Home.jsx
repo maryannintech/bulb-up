@@ -1,3 +1,5 @@
+import { ChoicesButton } from "../components/ChoicesButton";
+
 export function Home() {
   return (
     <>
@@ -13,6 +15,22 @@ export function Home() {
             Built with simplicity in mind, it’s your space to grow knowledge at
             your own pace—no pressure, just progress.
           </p>
+        </div>
+        <div>
+          <div className="home-choices mt-5 sm:mt-10">
+            <ChoicesButton
+              text="Start Quiz"
+              description={"Browse through the categories and begin!"}
+            />
+            <ChoicesButton
+              text="Surprise Me!"
+              description={"Try a random quiz from the deck"}
+            />
+            <ChoicesButton
+              text="Create your own"
+              description={"Make a quiz with your questions"}
+            />
+          </div>
         </div>
       </div>
     </>
