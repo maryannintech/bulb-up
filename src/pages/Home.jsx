@@ -1,7 +1,20 @@
 export function Home() {
   return (
     <>
-      <h1>Home</h1>
+      <div className="flex flex-col p-10 items-center justify-center sm:p-10">
+        <div className="about-text bg-[var(--orange-color)] text-[var(--bg-color)] p-4 sm:w-160 rounded-2xl sm:text-xl">
+          <p className="text-justify">
+            Bulb Up is a quiz website designed to brighten your brain, one quiz
+            at a time. Whether you're reviewing trivia, testing your memory, or
+            creating your own custom questions, Bulb Up helps you learn in a fun
+            and gentle way.
+            <br />
+            <br />
+            Built with simplicity in mind, it’s your space to grow knowledge at
+            your own pace—no pressure, just progress.
+          </p>
+        </div>
+      </div>
     </>
   );
 }

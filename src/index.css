@@ -26,5 +26,5 @@ h1 {
 }
 
 .nav-bar-button {
-  @apply text-xl bg-[var(--blue-color)] w-full px-5 rounded-full cursor-pointer text-[var(--bg-color)];
+  @apply bg-[var(--blue-color)] w-full px-5 rounded-full cursor-pointer text-[var(--bg-color)] sm:text-xl;
 }
