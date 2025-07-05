@@ -62,7 +62,7 @@ export const entertainmentCategories = [
   },
   {
     id: uuidv4(),
-    name: "Musicals & Theatres",
+    name: "Musicals",
     value: "13",
   },
   {

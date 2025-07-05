@@ -49,7 +49,7 @@ export function Category() {
             ></input>
           </div>
         </div>
-        <div className="px-5 mt-4 sm:text-xl">
+        <div className="px-5 mt-4 sm:text-xl mb-5">
           <div>
             <p>Science - Best Score: {score}</p>
             <div className="flex gap-5 mt-2 items-center overflow-x-auto ">
@@ -78,7 +78,7 @@ export function Category() {
               ))}
             </div>
           </div>
-          <div className="sm:mt-5">
+          <div>
             <p>History - Best Score: {score}</p>
             <div className="flex gap-5 mt-2 items-center overflow-x-auto ">
               {allCategories.history.map((category) => (
@@ -88,6 +88,20 @@ export function Category() {
                   category={category}
                   functionHandle={handleCategoryClick}
                   color="#516F9A"
+                />
+              ))}
+            </div>
+          </div>
+          <div className="mt-4 sm:mt-5">
+            <p>Politics - Best Score: {score}</p>
+            <div className="flex gap-5 mt-2 items-center overflow-x-auto ">
+              {allCategories.politics.map((category) => (
+                <CategoryCard
+                  key={category.id}
+                  categoryName={category.name}
+                  category={category}
+                  functionHandle={handleCategoryClick}
+                  color="#9A5151"
                 />
               ))}
             </div>
