@@ -49,7 +49,8 @@ export function Category() {
             ></input>
           </div>
         </div>
-        <div className="px-5 mt-4 sm:text-xl mb-5">
+
+        <div className="px-5 sm:pl-10 mt-4 sm:text-xl mb-5">
           <div>
             <p>Science - Best Score: {score}</p>
             <div className="flex gap-5 mt-2 items-center overflow-x-auto ">
@@ -64,21 +65,8 @@ export function Category() {
               ))}
             </div>
           </div>
-          <div className="sm:mt-5">
-            <p>Entertainment - Best Score: {score} </p>
-            <div className="flex gap-5 mt-2 items-center overflow-x-auto ">
-              {allCategories.entertainment.map((category) => (
-                <CategoryCard
-                  key={category.id}
-                  categoryName={category.name}
-                  category={category}
-                  functionHandle={handleCategoryClick}
-                  color="#91519A"
-                />
-              ))}
-            </div>
-          </div>
-          <div>
+
+          <div className="sm:mt-4">
             <p>History - Best Score: {score}</p>
             <div className="flex gap-5 mt-2 items-center overflow-x-auto ">
               {allCategories.history.map((category) => (
@@ -92,7 +80,8 @@ export function Category() {
               ))}
             </div>
           </div>
-          <div className="mt-4 sm:mt-5">
+
+          <div className="mt-4 sm:mt-4">
             <p>Politics - Best Score: {score}</p>
             <div className="flex gap-5 mt-2 items-center overflow-x-auto ">
               {allCategories.politics.map((category) => (
@@ -102,6 +91,36 @@ export function Category() {
                   category={category}
                   functionHandle={handleCategoryClick}
                   color="#9A5151"
+                />
+              ))}
+            </div>
+          </div>
+
+          <div className="mt-4 sm:mt-5">
+            <p>Entertainment - Best Score: {score} </p>
+            <div className="flex gap-5 mt-2 items-center overflow-x-auto ">
+              {allCategories.entertainment.map((category) => (
+                <CategoryCard
+                  key={category.id}
+                  categoryName={category.name}
+                  category={category}
+                  functionHandle={handleCategoryClick}
+                  color="#91519A"
+                />
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <p>Geography - Best Score: {score}</p>
+            <div className="flex gap-5 mt-2 items-center overflow-x-auto ">
+              {allCategories.geography.map((category) => (
+                <CategoryCard
+                  key={category.id}
+                  categoryName={category.name}
+                  category={category}
+                  functionHandle={handleCategoryClick}
+                  color="#9A8B51"
                 />
               ))}
             </div>
