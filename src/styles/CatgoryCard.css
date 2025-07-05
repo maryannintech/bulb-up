@@ -1,0 +1,15 @@
+.bx-arrow-right {
+  color: var(--bg-color);
+  font-size: 1.5rem;
+  margin-right: 5px;
+}
+
+/* width */
+::-webkit-scrollbar {
+  background-color: var(--bg-color);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--yellow-color);
+}
