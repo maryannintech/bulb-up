@@ -14,7 +14,7 @@ export function Quiz() {
   return (
     <>
       <div
-        className="mt-5 sm:mt-10 text-[var(--bg-color)] sm:text-2xl p-5 sm:p-10 max-h-full sm:h-130 overflow-hidden"
+        className="mt-5 sm:mt-10 text-[var(--bg-color)] sm:text-2xl p-5 sm:p-10 sm:min-h-screen sm:overflow-hidden"
         style={{ backgroundColor: categoryColor }}
       >
         <div className="flex justify-between flex-wrap ">
