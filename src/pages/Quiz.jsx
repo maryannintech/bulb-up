@@ -44,7 +44,7 @@ export function Quiz() {
               />
             </div>
           ) : (
-            <div className="mt-5 flex flex-col justify-center gap-4 items-center sm:mt-10 sm:grid sm:grid-cols-2 sm:gap-6 sm:max-w-md sm:mx-auto">
+            <div className="mt-5 flex flex-col justify-center gap-4 items-center sm:mt-10 sm:grid sm:grid-cols-2 sm:gap-4 sm:w-130 sm:mx-auto">
               <QuizChoicesButtons
                 choices="Choice 1"
                 handleChoiceClick={(choice) =>
