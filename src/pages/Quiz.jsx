@@ -25,7 +25,7 @@ export function Quiz() {
           </div>
         </div>
         <div>
-          <p className="text-center mt-5 text-xl sm:mt-10 sm:text-3xl">
+          <p className="text-center mt-5 text-xl sm:mt-10 sm:text-4xl">
             BASTA DITO YUNG QUESTION
           </p>
           {selectedQuizType === "boolean" ? (
@@ -44,7 +44,7 @@ export function Quiz() {
               />
             </div>
           ) : (
-            <div className="mt-5 flex flex-col justify-center gap-4 items-center sm:mt-10 sm:grid sm:grid-cols-2 sm:gap-4 sm:max-w-md sm:mx-auto">
+            <div className="mt-5 flex flex-col justify-center gap-4 items-center sm:mt-10 sm:grid sm:grid-cols-2 sm:gap-6 sm:max-w-md sm:mx-auto">
               <QuizChoicesButtons
                 choices="Choice 1"
                 handleChoiceClick={(choice) =>
