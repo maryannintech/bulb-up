@@ -1,6 +1,6 @@
 import { allCategories } from "../data/categories";
 import { CategoryCard } from "../components/CategoryCard";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export function Category() {
   const [category, setCategory] = useState("");
@@ -10,8 +10,32 @@ export function Category() {
 
   function handleCategoryClick(cat) {
     setCategory(cat.value);
-    console.log(category);
   }
+
+  function handleDifficultyChange(e) {
+    setDifficulty(e.target.value);
+  }
+
+  function handleQuizTypeChange(e) {
+    setQuizType(e.target.value);
+  }
+
+  // Separate useEffect for each state variable
+  useEffect(() => {
+    console.log("Difficulty changed to:", difficulty);
+  }, [difficulty]);
+
+  useEffect(() => {
+    console.log("Category changed to:", category);
+  }, [category]);
+
+  useEffect(() => {
+    console.log("Quiz type changed to:", quizType);
+  }, [quizType]);
+
+  useEffect(() => {
+    console.log("Search category changed to:", searchCategory);
+  }, [searchCategory]);
 
   let score = 0;
 
@@ -24,7 +48,11 @@ export function Category() {
         <div className="flex justify-evenly items-center mt-4 flex-wrap">
           <div className="flex flex-col items-center mb-2">
             <label htmlFor="difficulty">Set difficulty</label>
-            <select id="difficulty" className="input-category">
+            <select
+              id="difficulty"
+              className="input-category"
+              onChange={(e) => handleDifficultyChange(e)}
+            >
               <option value="any-difficulty">Any difficulty</option>
               <option value="easy">Easy</option>
               <option value="medium">Medium</option>
@@ -34,7 +62,11 @@ export function Category() {
 
           <div className="flex flex-col items-center mb-2">
             <label htmlFor="quiz-type">Set quiz type</label>
-            <select id="quiz-type" className="input-category">
+            <select
+              id="quiz-type"
+              className="input-category"
+              onChange={(e) => handleQuizTypeChange(e)}
+            >
               <option value="multiple">Multiple Choice</option>
               <option value="boolean">True or False</option>
             </select>
