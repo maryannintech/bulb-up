@@ -1,17 +1,30 @@
 import { allCategories } from "../data/categories";
 import { CategoryCard } from "../components/CategoryCard";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { Quiz } from "./Quiz";
+import { Link, useNavigate } from "react-router-dom";
 
 export function Category() {
   const [category, setCategory] = useState("");
   const [difficulty, setDifficulty] = useState("any-difficulty");
   const [quizType, setQuizType] = useState("multiple-choice");
   const [searchCategory, setSearchCategory] = useState("");
+  const [categoryName, setCategoryName] = useState("");
 
-  function handleCategoryClick(cat) {
+  const navigate = useNavigate();
+
+  function handleCategoryClick(cat, categoryColor) {
     setCategory(cat.value);
+    setCategoryName(cat.name);
+
+    navigate("/Quiz", {
+      state: {
+        selectedCategory: cat.value,
+        selectedDifficulty: difficulty,
+        selectedQuizType: quizType,
+        categoryColor: categoryColor,
+        categoryName: cat.name,
+      },
+    });
   }
 
   function handleDifficultyChange(e) {
@@ -22,7 +35,15 @@ export function Category() {
     setQuizType(e.target.value);
   }
 
-  // Separate useEffect for each state variable
+  function handleSearchChange(e) {
+    setSearchCategory(e.target.value);
+  }
+
+  // Keep your useEffect hooks for debugging
+  useEffect(() => {
+    console.log("Category name changed to:", categoryName);
+  }, [categoryName]);
+
   useEffect(() => {
     console.log("Difficulty changed to:", difficulty);
   }, [difficulty]);
@@ -53,7 +74,7 @@ export function Category() {
             <select
               id="difficulty"
               className="input-category"
-              onChange={(e) => handleDifficultyChange(e)}
+              onChange={handleDifficultyChange}
             >
               <option value="any-difficulty">Any difficulty</option>
               <option value="easy">Easy</option>
@@ -67,7 +88,7 @@ export function Category() {
             <select
               id="quiz-type"
               className="input-category"
-              onChange={(e) => handleQuizTypeChange(e)}
+              onChange={handleQuizTypeChange}
             >
               <option value="multiple">Multiple Choice</option>
               <option value="boolean">True or False</option>
@@ -80,101 +101,96 @@ export function Category() {
               type="text"
               placeholder="Search for a category"
               className="input-category"
-            ></input>
+              value={searchCategory}
+              onChange={handleSearchChange}
+            />
           </div>
         </div>
 
         <div className="px-5 sm:pl-10 mt-4 sm:text-xl mb-5">
           <div>
             <p>Science - Best Score: {score}</p>
-            <Link
-              to="/Quiz"
-              className="flex gap-5 mt-2 items-center overflow-x-auto "
-            >
-              {allCategories.science.map((category) => (
+            <div className="flex gap-5 mt-2 items-center overflow-x-auto">
+              {allCategories.science.map((cat) => (
                 <CategoryCard
-                  key={category.id}
-                  categoryName={category.name}
-                  category={category}
-                  functionHandle={handleCategoryClick}
+                  key={cat.id}
+                  categoryName={cat.name}
+                  category={cat}
+                  functionHandle={(category) =>
+                    handleCategoryClick(category, "#5C9A51")
+                  }
                   color="#5C9A51"
                 />
               ))}
-            </Link>
+            </div>
           </div>
 
           <div className="sm:mt-4">
             <p>History - Best Score: {score}</p>
-
-            <Link
-              to="/Quiz"
-              className="flex gap-5 mt-2 items-center overflow-x-auto"
-            >
-              {allCategories.history.map((category) => (
+            <div className="flex gap-5 mt-2 items-center overflow-x-auto">
+              {allCategories.history.map((cat) => (
                 <CategoryCard
-                  key={category.id}
-                  categoryName={category.name}
-                  category={category}
-                  functionHandle={handleCategoryClick}
+                  key={cat.id}
+                  categoryName={cat.name}
+                  category={cat}
+                  functionHandle={(category) =>
+                    handleCategoryClick(category, "#516F9A")
+                  }
                   color="#516F9A"
                 />
               ))}
-            </Link>
+            </div>
           </div>
 
           <div className="mt-4 sm:mt-4">
             <p>Politics - Best Score: {score}</p>
-            <Link
-              to="/Quiz"
-              className="flex gap-5 mt-2 items-center overflow-x-auto"
-            >
-              {allCategories.politics.map((category) => (
+            <div className="flex gap-5 mt-2 items-center overflow-x-auto">
+              {allCategories.politics.map((cat) => (
                 <CategoryCard
-                  key={category.id}
-                  categoryName={category.name}
-                  category={category}
-                  functionHandle={handleCategoryClick}
+                  key={cat.id}
+                  categoryName={cat.name}
+                  category={cat}
+                  functionHandle={(category) =>
+                    handleCategoryClick(category, "#9A5151")
+                  }
                   color="#9A5151"
                 />
               ))}
-            </Link>
+            </div>
           </div>
 
           <div className="mt-4 sm:mt-5">
             <p>Entertainment - Best Score: {score} </p>
-
-            <Link
-              to="/Quiz"
-              className="flex gap-5 mt-2 items-center overflow-x-auto"
-            >
-              {allCategories.entertainment.map((category) => (
+            <div className="flex gap-5 mt-2 items-center overflow-x-auto">
+              {allCategories.entertainment.map((cat) => (
                 <CategoryCard
-                  key={category.id}
-                  categoryName={category.name}
-                  category={category}
-                  functionHandle={handleCategoryClick}
+                  key={cat.id}
+                  categoryName={cat.name}
+                  category={cat}
+                  functionHandle={(category) =>
+                    handleCategoryClick(category, "#91519A")
+                  }
                   color="#91519A"
                 />
               ))}
-            </Link>
+            </div>
           </div>
 
           <div>
             <p>Geography - Best Score: {score}</p>
-            <Link
-              to="/Quiz"
-              className="flex gap-5 mt-2 items-center overflow-x-auto"
-            >
-              {allCategories.geography.map((category) => (
+            <div className="flex gap-5 mt-2 items-center overflow-x-auto">
+              {allCategories.geography.map((cat) => (
                 <CategoryCard
-                  key={category.id}
-                  categoryName={category.name}
-                  category={category}
-                  functionHandle={handleCategoryClick}
+                  key={cat.id}
+                  categoryName={cat.name}
+                  category={cat}
+                  functionHandle={(category) =>
+                    handleCategoryClick(category, "#9A8B51")
+                  }
                   color="#9A8B51"
                 />
               ))}
-            </Link>
+            </div>
           </div>
         </div>
       </div>
