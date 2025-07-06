@@ -14,7 +14,7 @@ export function Quiz() {
   return (
     <>
       <div
-        className="mt-5 sm:mt-10 text-[var(--bg-color)] sm:text-2xl p-5 sm:p-10 sm:min-h-screen sm:overflow-hidden"
+        className="mt-5 sm:mt-10 text-[var(--bg-color)] sm:text-2xl p-5 sm:p-10 sm:h-115 sm:overflow-hidden"
         style={{ backgroundColor: categoryColor }}
       >
         <div className="flex justify-between flex-wrap ">
@@ -26,7 +26,7 @@ export function Quiz() {
         </div>
         <div>
           <p className="text-center mt-5 text-xl sm:mt-10 sm:text-4xl">
-            BASTA DITO YUNG QUESTION
+            Dito yung question
           </p>
           {selectedQuizType === "boolean" ? (
             <div className="flex flex-col items-center mt-5 sm:mt-10 gap-4">
