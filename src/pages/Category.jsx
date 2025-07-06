@@ -1,6 +1,8 @@
 import { allCategories } from "../data/categories";
 import { CategoryCard } from "../components/CategoryCard";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { Quiz } from "./Quiz";
 
 export function Category() {
   const [category, setCategory] = useState("");
@@ -85,7 +87,10 @@ export function Category() {
         <div className="px-5 sm:pl-10 mt-4 sm:text-xl mb-5">
           <div>
             <p>Science - Best Score: {score}</p>
-            <div className="flex gap-5 mt-2 items-center overflow-x-auto ">
+            <Link
+              to="/Quiz"
+              className="flex gap-5 mt-2 items-center overflow-x-auto "
+            >
               {allCategories.science.map((category) => (
                 <CategoryCard
                   key={category.id}
@@ -95,12 +100,16 @@ export function Category() {
                   color="#5C9A51"
                 />
               ))}
-            </div>
+            </Link>
           </div>
 
           <div className="sm:mt-4">
             <p>History - Best Score: {score}</p>
-            <div className="flex gap-5 mt-2 items-center overflow-x-auto ">
+
+            <Link
+              to="/Quiz"
+              className="flex gap-5 mt-2 items-center overflow-x-auto"
+            >
               {allCategories.history.map((category) => (
                 <CategoryCard
                   key={category.id}
@@ -110,12 +119,15 @@ export function Category() {
                   color="#516F9A"
                 />
               ))}
-            </div>
+            </Link>
           </div>
 
           <div className="mt-4 sm:mt-4">
             <p>Politics - Best Score: {score}</p>
-            <div className="flex gap-5 mt-2 items-center overflow-x-auto ">
+            <Link
+              to="/Quiz"
+              className="flex gap-5 mt-2 items-center overflow-x-auto"
+            >
               {allCategories.politics.map((category) => (
                 <CategoryCard
                   key={category.id}
@@ -125,12 +137,16 @@ export function Category() {
                   color="#9A5151"
                 />
               ))}
-            </div>
+            </Link>
           </div>
 
           <div className="mt-4 sm:mt-5">
             <p>Entertainment - Best Score: {score} </p>
-            <div className="flex gap-5 mt-2 items-center overflow-x-auto ">
+
+            <Link
+              to="/Quiz"
+              className="flex gap-5 mt-2 items-center overflow-x-auto"
+            >
               {allCategories.entertainment.map((category) => (
                 <CategoryCard
                   key={category.id}
@@ -140,12 +156,15 @@ export function Category() {
                   color="#91519A"
                 />
               ))}
-            </div>
+            </Link>
           </div>
 
           <div>
             <p>Geography - Best Score: {score}</p>
-            <div className="flex gap-5 mt-2 items-center overflow-x-auto ">
+            <Link
+              to="/Quiz"
+              className="flex gap-5 mt-2 items-center overflow-x-auto"
+            >
               {allCategories.geography.map((category) => (
                 <CategoryCard
                   key={category.id}
@@ -155,7 +174,7 @@ export function Category() {
                   color="#9A8B51"
                 />
               ))}
-            </div>
+            </Link>
           </div>
         </div>
       </div>
