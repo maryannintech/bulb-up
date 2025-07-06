@@ -28,32 +28,49 @@ export function Quiz() {
           <p className="text-center mt-5 text-xl sm:mt-10 sm:text-3xl">
             BASTA DITO YUNG QUESTION
           </p>
-          <div className="mt-5 sm:mt-10 flex justify-center items-center gap-4 flex-wrap sm:gap-5">
-            <QuizChoicesButtons
-              choices="Choice 1"
-              handleChoiceClick={(choice) =>
-                console.log(`You clicked: ${choice}`)
-              }
-            />
-            <QuizChoicesButtons
-              choices="Choice 2"
-              handleChoiceClick={(choice) =>
-                console.log(`You clicked: ${choice}`)
-              }
-            />
-            <QuizChoicesButtons
-              choices="Choice 3"
-              handleChoiceClick={(choice) =>
-                console.log(`You clicked: ${choice}`)
-              }
-            />
-            <QuizChoicesButtons
-              choices="Choice 4"
-              handleChoiceClick={(choice) =>
-                console.log(`You clicked: ${choice}`)
-              }
-            />
-          </div>
+          {selectedQuizType === "boolean" ? (
+            <div className="flex flex-col items-center mt-5 sm:mt-10 gap-4">
+              <QuizChoicesButtons
+                choices="True"
+                handleChoiceClick={(choice) =>
+                  console.log(`You clicked: ${choice}`)
+                }
+              />
+              <QuizChoicesButtons
+                choices="False"
+                handleChoiceClick={(choice) =>
+                  console.log(`You clicked: ${choice}`)
+                }
+              />
+            </div>
+          ) : (
+            <div className="mt-5 flex flex-col justify-center gap-4 items-center sm:mt-10 sm:grid sm:grid-cols-2 sm:gap-4 sm:max-w-md sm:mx-auto">
+              <QuizChoicesButtons
+                choices="Choice 1"
+                handleChoiceClick={(choice) =>
+                  console.log(`You clicked: ${choice}`)
+                }
+              />
+              <QuizChoicesButtons
+                choices="Choice 2"
+                handleChoiceClick={(choice) =>
+                  console.log(`You clicked: ${choice}`)
+                }
+              />
+              <QuizChoicesButtons
+                choices="Choice 3"
+                handleChoiceClick={(choice) =>
+                  console.log(`You clicked: ${choice}`)
+                }
+              />
+              <QuizChoicesButtons
+                choices="Choice 4"
+                handleChoiceClick={(choice) =>
+                  console.log(`You clicked: ${choice}`)
+                }
+              />
+            </div>
+          )}
         </div>
       </div>
     </>
