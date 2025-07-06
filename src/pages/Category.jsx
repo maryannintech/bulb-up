@@ -39,27 +39,6 @@ export function Category() {
     setSearchCategory(e.target.value);
   }
 
-  // Keep your useEffect hooks for debugging
-  useEffect(() => {
-    console.log("Category name changed to:", categoryName);
-  }, [categoryName]);
-
-  useEffect(() => {
-    console.log("Difficulty changed to:", difficulty);
-  }, [difficulty]);
-
-  useEffect(() => {
-    console.log("Category changed to:", category);
-  }, [category]);
-
-  useEffect(() => {
-    console.log("Quiz type changed to:", quizType);
-  }, [quizType]);
-
-  useEffect(() => {
-    console.log("Search category changed to:", searchCategory);
-  }, [searchCategory]);
-
   let score = 0;
 
   return (

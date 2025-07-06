@@ -5,11 +5,11 @@
 }
 
 /* width */
-::-webkit-scrollbar {
+.categories-card::-webkit-scrollbar {
   background-color: var(--bg-color);
 }
 
 /* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
+.categories-card::-webkit-scrollbar-thumb:hover {
   background: var(--yellow-color);
 }

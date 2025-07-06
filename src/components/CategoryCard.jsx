@@ -1,4 +1,4 @@
-import "../styles/CatgoryCard.css";
+import "../styles/CategoryCard.css";
 
 export function CategoryCard({
   categoryName,
