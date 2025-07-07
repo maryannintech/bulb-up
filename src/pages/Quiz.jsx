@@ -13,7 +13,7 @@ export function Quiz() {
     categoryColor = "#D97524",
     categoryName = "General Knowledge",
     score = 0,
-    setScore = () => {}, // Default function to avoid errors if not provided
+    setScore = () => {},
   } = quizSettings;
 
   const [quizData, setQuizData] = useState([]);
@@ -157,9 +157,7 @@ export function Quiz() {
       ) : (
         <>
           <div className="text-[var(--bg-color)] flex flex-col justify-center items-center mt-10 bg-[#D95724] py-10 h-90 select-none">
-            <p className="text-2xl sm:text-4xl mb-3">
-              Your brain bulb is up💡
-            </p>
+            <p className="text-2xl sm:text-4xl mb-3">Your brain bulb is up💡</p>
             <div className="text-center rounded-2xl">
               <p className="text-xl sm:text-2xl">
                 You got {currentScore} / {quizData.length}
