@@ -5,3 +5,14 @@
 .text-yellow {
     color: var(--yellow-color);
 }
+
+.nav-bar-button {
+  transition: all 0.3s ease-in-out;
+}
+
+.nav-bar-button:hover {
+  background-color: var(--orange-color);
+  color: var(--bg-color);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}

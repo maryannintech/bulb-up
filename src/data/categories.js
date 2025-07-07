@@ -75,6 +75,26 @@ export const entertainmentCategories = [
     name: "Board Games",
     value: "16",
   },
+  {
+    id: uuidv4(),
+    name: "Television",
+    value: "14",
+  },
+  {
+    id: uuidv4(),
+    name: "Comics",
+    value: "29",
+  },
+  {
+    id: uuidv4(),
+    name: "Anime & Manga",
+    value: "31",
+  },
+  {
+    id: uuidv4(),
+    name: "Animations",
+    value: "32",
+  }
 ];
 
 export const politicsCategories = [
@@ -93,6 +113,14 @@ export const geographyCategories = [
   },
 ];
 
+export const artCategories = [
+  {
+    id: uuidv4(),
+    name: "Art",
+    value: "25",
+  },
+];
+
 export const allCategories = {
   science: scienceCategories,
   history: historyCategories,
@@ -100,4 +128,5 @@ export const allCategories = {
   entertainment: entertainmentCategories,
   politics: politicsCategories,
   geography: geographyCategories,
+  art: artCategories,
 };

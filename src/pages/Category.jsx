@@ -24,6 +24,7 @@ export function Category() {
         selectedQuizType: quizType,
         categoryColor: categoryColor,
         categoryName: cat.name,
+        score,
       },
     });
   }
@@ -42,7 +43,7 @@ export function Category() {
 
   return (
     <>
-      <div className="mt-5">
+      <div className="mt-5 animation-soft-pop-in ">
         <p className="text-center text-orange italic sm:text-xl font-medium">
           Set your preference
         </p>
@@ -166,6 +167,23 @@ export function Category() {
                     handleCategoryClick(category, "#9A8B51")
                   }
                   color="#9A8B51"
+                />
+              ))}
+            </div>
+          </div>
+
+          <div className="mt-4 ">
+            <p>Art - Best Score: {score}</p>
+            <div className="flex gap-5 mt-2 items-center overflow-x-auto">
+              {allCategories.art.map((cat) => (
+                <CategoryCard
+                  key={cat.id}
+                  categoryName={cat.name}
+                  category={cat}
+                  functionHandle={(category) =>
+                    handleCategoryClick(category, "#9A8B51")
+                  }
+                  color="#951A7F"
                 />
               ))}
             </div>

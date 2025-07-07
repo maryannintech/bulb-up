@@ -1,6 +1,8 @@
 import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { QuizChoicesButtons } from "../components/QuizChoicesButtons";
+import { Link } from "react-router-dom";
+import "../styles/Quiz.css";
 
 export function Quiz() {
   const location = useLocation();
@@ -111,7 +113,7 @@ export function Quiz() {
     <>
       {!isQuizCompleted ? (
         <div
-          className="mt-5 sm:mt-10 text-[var(--bg-color)] sm:text-2xl p-5 sm:p-10 sm:h-130 sm:overflow-hidden select-none"
+          className="mt-5 sm:mt-10 text-[var(--bg-color)] sm:text-2xl p-5 sm:p-10 sm:h-130 sm:overflow-hidden select-none "
           style={{ backgroundColor: categoryColor }}
         >
           <div className="flex justify-between flex-wrap ">
@@ -123,8 +125,8 @@ export function Quiz() {
               <p>Score: {currentScore}</p>
             </div>
           </div>
-          <div>
-            <p className="text-center mt-5 text-xl sm:mt-10 sm:text-4xl">
+          <div className="animation-soft-pop-in "> 
+            <p className="text-center mt-5 text-xl sm:mt-10 sm:text-4xl animation-soft-pop-in ">
               {quizData.length > 0
                 ? decodeHtml(quizData[currentQuestion].question)
                 : "Loading question..."}
@@ -156,7 +158,7 @@ export function Quiz() {
         </div>
       ) : (
         <>
-          <div className="text-[var(--bg-color)] flex flex-col justify-center items-center mt-10 bg-[#D95724] py-10 h-90 select-none">
+          <div className="text-[var(--bg-color)] flex flex-col justify-center items-center mt-10 bg-[#D95724] py-10 h-70 select-none animate-slide-in-left">
             <p className="text-2xl sm:text-4xl mb-3">Your brain bulb is up💡</p>
             <div className="text-center rounded-2xl">
               <p className="text-xl sm:text-2xl">
@@ -164,9 +166,10 @@ export function Quiz() {
                 <br />
                 {currentScore >= 3
                   ? "Brilliant! You're really shining bright"
-                  : "Still glowing..give it another shot!"}
+                  : "Still glowing, give it another shot!"}
               </p>
             </div>
+            <Link to="/Category"><button className="sm:text-xl border-2 bg-[var(--blue-color)] px-4 py-1 rounded-2xl mt-3 cursor-pointer hover:bg-[var(--yellow-color)] hover:text-gray-800 transition-all duration-300 ease-in-out hover:shadow-lg transform hover:-translate-y-1 hover:brightness-110 hover:border-[var(--bg-color)]">Try a different category?</button></Link>
           </div>
         </>
       )}
