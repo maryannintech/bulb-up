@@ -114,6 +114,7 @@ export function Quiz() {
       console.log("Correct answer!");
       let newScore = currentScore + 1;
       setCurrentScore(newScore);
+      
     } else {
       console.log("Wrong answer!");
     }
