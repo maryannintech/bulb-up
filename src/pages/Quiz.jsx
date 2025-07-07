@@ -6,11 +6,11 @@ export function Quiz() {
   const location = useLocation();
   const quizSettings = location.state || {};
   const {
-    selectedCategory,
-    selectedDifficulty,
-    selectedQuizType,
-    categoryColor,
-    categoryName,
+    selectedCategory = "9",
+    selectedDifficulty = "easy",
+    selectedQuizType = "multiple",
+    categoryColor = "#D97524",
+    categoryName = "General Knowledge",
   } = quizSettings;
 
   const [quizData, setQuizData] = useState([]);
@@ -24,7 +24,7 @@ export function Quiz() {
     let timer;
     timer = setTimeout(fetchQuizData, 2000);
     return () => clearTimeout(timer);
-    
+
     async function fetchQuizData() {
       const now = Date.now();
       if (now - lastFetched < 5000) return;
@@ -115,7 +115,7 @@ export function Quiz() {
               : "Loading question..."}
           </p>
           {selectedQuizType === "boolean" ? (
-            <div className="flex flex-col items-center mt-5 sm:mt-10 gap-4">
+            <div className="flex flex-col items-center mt-5 sm:mt-10 gap-4 mb-3">
               <QuizChoicesButtons
                 choices="True"
                 handleChoiceClick={(choice) =>
