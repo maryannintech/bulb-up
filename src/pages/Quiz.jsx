@@ -1,4 +1,5 @@
 import { useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { QuizChoicesButtons } from "../components/QuizChoicesButtons";
 
 export function Quiz() {
@@ -11,6 +12,62 @@ export function Quiz() {
     categoryColor,
     categoryName,
   } = quizSettings;
+
+  const [quizData, setQuizData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  let lastFetched = 0; // to track the last fetch time
+
+  useEffect(() => {
+    async function fetchQuizData() {
+      const now = Date.now();
+      if (now - lastFetched < 5000) return; // ignore calls within 5 seconds
+
+      lastFetched = now;
+      try {
+        setError(null);
+
+        const response = await fetch(
+          `https://opentdb.com/api.php?amount=5&category=${selectedCategory}&difficulty=${selectedDifficulty}&type=${selectedQuizType}`
+        );
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log("Quiz Data:", data.results);
+        setQuizData(data.results);
+      } catch (error) {
+        console.error("Error fetching quiz data:", error);
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    if (selectedCategory && selectedDifficulty && selectedQuizType) {
+      fetchQuizData();
+    }
+  }, [selectedCategory, selectedDifficulty, selectedQuizType]);
+
+  if (loading) {
+    return (
+      <div className="h-screen flex items-center justify-center">
+        <p className="text-2xl">Loading quiz...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="h-screen flex items-center justify-center">
+        <p className="text-2xl text-red-500">Error: {error}</p>
+      </div>
+    );
+  }
+
   return (
     <>
       <div
@@ -26,7 +83,7 @@ export function Quiz() {
         </div>
         <div>
           <p className="text-center mt-5 text-xl sm:mt-10 sm:text-4xl">
-            Dito yung question
+            {quizData.length > 0 ? quizData[0].question : "Loading question..."}
           </p>
           {selectedQuizType === "boolean" ? (
             <div className="flex flex-col items-center mt-5 sm:mt-10 gap-4">
@@ -44,7 +101,7 @@ export function Quiz() {
               />
             </div>
           ) : (
-            <div className="mt-5 flex flex-col justify-center gap-4 items-center sm:mt-10 sm:grid sm:grid-cols-2 sm:gap-4 sm:w-130 sm:mx-auto">
+            <div className="mt-5 sm:mt-10 grid grid-cols-2 gap-4 sm:gap-5 max-w-md mx-auto">
               <QuizChoicesButtons
                 choices="Choice 1"
                 handleChoiceClick={(choice) =>

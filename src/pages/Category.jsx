@@ -5,8 +5,8 @@ import { Link, useNavigate } from "react-router-dom";
 
 export function Category() {
   const [category, setCategory] = useState("");
-  const [difficulty, setDifficulty] = useState("any-difficulty");
-  const [quizType, setQuizType] = useState("multiple-choice");
+  const [difficulty, setDifficulty] = useState("easy");
+  const [quizType, setQuizType] = useState("multiple");
   const [searchCategory, setSearchCategory] = useState("");
   const [categoryName, setCategoryName] = useState("");
 
