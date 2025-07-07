@@ -111,7 +111,7 @@ export function Quiz() {
     <>
       {!isQuizCompleted ? (
         <div
-          className="mt-5 sm:mt-10 text-[var(--bg-color)] sm:text-2xl p-5 sm:p-10 sm:h-130 sm:overflow-hidden"
+          className="mt-5 sm:mt-10 text-[var(--bg-color)] sm:text-2xl p-5 sm:p-10 sm:h-130 sm:overflow-hidden select-none"
           style={{ backgroundColor: categoryColor }}
         >
           <div className="flex justify-between flex-wrap ">
@@ -156,9 +156,9 @@ export function Quiz() {
         </div>
       ) : (
         <>
-          <div className="text-[var(--bg-color)] flex flex-col justify-center items-center mt-10 bg-[var(--orange-color)] py-10 h-90">
-            <p className="text-2xl sm:text-3xl bg-[var(--orange-color)] mb-3">
-              Your brain bulb is up!
+          <div className="text-[var(--bg-color)] flex flex-col justify-center items-center mt-10 bg-[#D95724] py-10 h-90 select-none">
+            <p className="text-2xl sm:text-4xl mb-3">
+              Your brain bulb is up💡
             </p>
             <div className="text-center rounded-2xl">
               <p className="text-xl sm:text-2xl">
@@ -166,7 +166,7 @@ export function Quiz() {
                 <br />
                 {currentScore >= 3
                   ? "Brilliant! You're really shining bright"
-                  : "Still glowing! Give it another shot"}
+                  : "Still glowing, give it another shot!"}
               </p>
             </div>
           </div>
