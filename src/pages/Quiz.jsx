@@ -40,6 +40,12 @@ export function Quiz() {
 
   const isQuizCompleted = currentQuestion >= quizData.length;
 
+  useEffect(() => {
+    if (isQuizCompleted && quizData.length > 0) {
+      saveBestScore(currentScore);
+    }
+  }, [isQuizCompleted, currentScore, quizData.length, selectedCategory]);
+
   let lastFetched = 0;
 
   useEffect(() => {
