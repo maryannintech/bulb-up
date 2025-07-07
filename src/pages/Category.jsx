@@ -24,8 +24,8 @@ export function Category() {
         selectedQuizType: quizType,
         categoryColor: categoryColor,
         categoryName: cat.name,
-        score: score,
-        setScore: setScore,
+        score,
+        setScore,
       },
     });
   }

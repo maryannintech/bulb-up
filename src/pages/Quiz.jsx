@@ -5,18 +5,23 @@ import { QuizChoicesButtons } from "../components/QuizChoicesButtons";
 export function Quiz() {
   const location = useLocation();
   const quizSettings = location.state || {};
+
   const {
     selectedCategory = "9",
     selectedDifficulty = "medium",
     selectedQuizType = "multiple",
     categoryColor = "#D97524",
     categoryName = "General Knowledge",
+    score = 0,
+    setScore = () => {}, // Default function to avoid errors if not provided
   } = quizSettings;
 
   const [quizData, setQuizData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [questionChoices, setQuestionChoices] = useState([]);
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [currentScore, setCurrentScore] = useState(score);
 
   let lastFetched = 0;
 
@@ -63,10 +68,6 @@ export function Quiz() {
         setLoading(false);
       }
     }
-
-    if (selectedCategory && selectedDifficulty && selectedQuizType) {
-      fetchQuizData();
-    }
   }, [selectedCategory, selectedDifficulty, selectedQuizType]);
 
   if (loading) {
@@ -87,6 +88,15 @@ export function Quiz() {
 
   function handleChoiceClick(choice) {
     console.log(`You clicked: ${choice}`);
+    if (choice === quizData[0].correct_answer) {
+      console.log("Correct answer!");
+      let newScore = currentScore + 1;
+      setCurrentScore(newScore);
+      setCurrentQuestion(currentQuestion + 1);
+    } else {
+      console.log("Wrong answer!");
+      setCurrentQuestion(currentQuestion + 1);
+    }
   }
 
   function decodeHtml(html) {
@@ -104,14 +114,14 @@ export function Quiz() {
         <div className="flex justify-between flex-wrap ">
           <p>Category: {categoryName}</p>
           <div>
-            <p>Question: 1/5</p>
-            <p>Score: 0</p>
+            <p>Question: {currentQuestion + 1}/5</p>
+            <p>Score: {currentScore}</p>
           </div>
         </div>
         <div>
           <p className="text-center mt-5 text-xl sm:mt-10 sm:text-4xl">
             {quizData.length > 0
-              ? decodeHtml(quizData[0].question)
+              ? decodeHtml(quizData[currentQuestion].question)
               : "Loading question..."}
           </p>
           {selectedQuizType === "boolean" ? (
@@ -132,7 +142,7 @@ export function Quiz() {
           ) : (
             <div className="flex flex-col justify-center items-center mt-5 sm:mt-10 sm:grid sm:grid-cols-2 gap-4 sm:gap-5 sm:max-w-130 mx-auto">
               {questionChoices.length > 0 &&
-                questionChoices[0].map((choice, index) => (
+                questionChoices[currentQuestion].map((choice, index) => (
                   <QuizChoicesButtons
                     key={index}
                     choices={decodeHtml(choice)}
