@@ -7,7 +7,7 @@ export function Quiz() {
   const quizSettings = location.state || {};
   const {
     selectedCategory = "9",
-    selectedDifficulty = "easy",
+    selectedDifficulty = "medium",
     selectedQuizType = "multiple",
     categoryColor = "#D97524",
     categoryName = "General Knowledge",

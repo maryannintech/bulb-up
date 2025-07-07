@@ -9,6 +9,7 @@ export function Category() {
   const [quizType, setQuizType] = useState("multiple");
   const [searchCategory, setSearchCategory] = useState("");
   const [categoryName, setCategoryName] = useState("");
+  const [score, setScore] = useState(0);
 
   const navigate = useNavigate();
 
@@ -23,6 +24,8 @@ export function Category() {
         selectedQuizType: quizType,
         categoryColor: categoryColor,
         categoryName: cat.name,
+        score: score,
+        setScore: setScore,
       },
     });
   }
@@ -38,8 +41,6 @@ export function Category() {
   function handleSearchChange(e) {
     setSearchCategory(e.target.value);
   }
-
-  let score = 0;
 
   return (
     <>
