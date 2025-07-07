@@ -166,7 +166,7 @@ export function Quiz() {
                 <br />
                 {currentScore >= 3
                   ? "Brilliant! You're really shining bright"
-                  : "Still glowing, give it another shot!"}
+                  : "Still glowing..give it another shot!"}
               </p>
             </div>
           </div>
