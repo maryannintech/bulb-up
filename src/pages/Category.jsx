@@ -9,7 +9,6 @@ export function Category() {
   const [quizType, setQuizType] = useState("multiple");
   const [searchCategory, setSearchCategory] = useState("");
   const [categoryName, setCategoryName] = useState("");
-  const [score, setScore] = useState(0);
 
   const navigate = useNavigate();
 
@@ -24,7 +23,6 @@ export function Category() {
         selectedQuizType: quizType,
         categoryColor: categoryColor,
         categoryName: cat.name,
-        bestScore: cat.bestScore,
       },
     });
   }
@@ -39,10 +37,6 @@ export function Category() {
 
   function handleSearchChange(e) {
     setSearchCategory(e.target.value);
-  }
-
-  function getBestScore(categoryArray) {
-    return Math.max(...categoryArray.map((cat) => cat.bestScore));
   }
 
   return (
@@ -92,7 +86,7 @@ export function Category() {
 
         <div className="px-5 sm:pl-10 mt-4 sm:text-xl mb-5">
           <div>
-            <p>Science - Best Score: {getBestScore(allCategories.science)}</p>
+            <p>Science</p>
             <div className="flex gap-5 mt-2 items-center overflow-x-auto">
               {allCategories.science.map((cat) => (
                 <CategoryCard
@@ -109,7 +103,7 @@ export function Category() {
           </div>
 
           <div className="sm:mt-4">
-            <p>History - Best Score: {getBestScore(allCategories.history)}</p>
+            <p>History</p>
             <div className="flex gap-5 mt-2 items-center overflow-x-auto">
               {allCategories.history.map((cat) => (
                 <CategoryCard
@@ -126,7 +120,7 @@ export function Category() {
           </div>
 
           <div className="mt-4 sm:mt-4">
-            <p>Politics - Best Score: {getBestScore(allCategories.politics)}</p>
+            <p>Politics</p>
             <div className="flex gap-5 mt-2 items-center overflow-x-auto">
               {allCategories.politics.map((cat) => (
                 <CategoryCard
@@ -143,7 +137,7 @@ export function Category() {
           </div>
 
           <div className="mt-4 sm:mt-5">
-            <p>Entertainment - Best Score: {getBestScore(allCategories.entertainment)} </p>
+            <p>Entertainment</p>
             <div className="flex gap-5 mt-2 items-center overflow-x-auto">
               {allCategories.entertainment.map((cat) => (
                 <CategoryCard
@@ -160,7 +154,7 @@ export function Category() {
           </div>
 
           <div>
-            <p>Geography - Best Score: {getBestScore(allCategories.geography)}</p>
+            <p>Geography</p>
             <div className="flex gap-5 mt-2 items-center overflow-x-auto">
               {allCategories.geography.map((cat) => (
                 <CategoryCard
@@ -177,7 +171,7 @@ export function Category() {
           </div>
 
           <div className="mt-4 ">
-            <p>Art - Best Score: {getBestScore(allCategories.art)}</p>
+            <p>Art</p>
             <div className="flex gap-5 mt-2 items-center overflow-x-auto">
               {allCategories.art.map((cat) => (
                 <CategoryCard

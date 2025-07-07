@@ -14,8 +14,6 @@ export function Quiz() {
     selectedQuizType = "multiple",
     categoryColor = "#D97524",
     categoryName = "General Knowledge",
-    score = 0,
-    setScore = () => {},
   } = quizSettings;
 
   const [quizData, setQuizData] = useState([]);
@@ -23,7 +21,24 @@ export function Quiz() {
   const [error, setError] = useState(null);
   const [questionChoices, setQuestionChoices] = useState([]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [currentScore, setCurrentScore] = useState(score);
+  const [currentScore, setCurrentScore] = useState(0);
+
+  function getBestScore() {
+    return parseInt(
+      localStorage.getItem(`bestScore_${selectedCategory}`) || "0"
+    );
+  }
+
+  function saveBestScore(score) {
+    const currentBest = getBestScore();
+    if (score > currentBest) {
+      localStorage.setItem(`bestScore_${selectedCategory}`, score.toString());
+      return true;
+    }
+    return false;
+  }
+
+  const isQuizCompleted = currentQuestion >= quizData.length;
 
   let lastFetched = 0;
 
@@ -93,7 +108,6 @@ export function Quiz() {
       console.log("Correct answer!");
       let newScore = currentScore + 1;
       setCurrentScore(newScore);
-      setScore(newScore);
     } else {
       console.log("Wrong answer!");
     }
@@ -106,8 +120,6 @@ export function Quiz() {
     txt.innerHTML = html;
     return txt.value;
   }
-
-  const isQuizCompleted = currentQuestion >= quizData.length;
 
   return (
     <>
@@ -123,9 +135,10 @@ export function Quiz() {
                 Question: {currentQuestion + 1}/{quizData.length}
               </p>
               <p>Score: {currentScore}</p>
+              <p>Best Score: {getBestScore()}</p>
             </div>
           </div>
-          <div className="animation-soft-pop-in "> 
+          <div className="animation-soft-pop-in ">
             <p className="text-center mt-5 text-xl sm:mt-10 sm:text-4xl animation-soft-pop-in ">
               {quizData.length > 0
                 ? decodeHtml(quizData[currentQuestion].question)
@@ -158,18 +171,30 @@ export function Quiz() {
         </div>
       ) : (
         <>
-          <div className="text-[var(--bg-color)] flex flex-col justify-center items-center mt-10 bg-[#D95724] py-10 h-70 select-none animate-slide-in-left">
+          <div className="text-[var(--bg-color)] flex flex-col justify-center items-center mt-10 bg-[#D95724] py-10 h-90 select-none animate-slide-in-left">
+            <p className="text-xl sm:text-2xl mb-3">
+              {currentScore > getBestScore()
+                ? `New best score ${currentScore}!`
+                : `Current best score: ${getBestScore()}`}
+            </p>
             <p className="text-2xl sm:text-4xl mb-3">Your brain bulb is up💡</p>
+
             <div className="text-center rounded-2xl">
-              <p className="text-xl sm:text-2xl">
-                You got {currentScore} / {quizData.length}
-                <br />
+              <p className="text-xl sm:text-3xl">
+                You got: {currentScore} / {quizData.length}
+              </p>
+              <p className="sm:text-xl">
+                {" "}
                 {currentScore >= 3
-                  ? "Brilliant! You're really shining bright"
+                  ? "You're really shining bright!"
                   : "Still glowing, give it another shot!"}
               </p>
             </div>
-            <Link to="/Category"><button className="sm:text-xl border-2 bg-[var(--blue-color)] px-4 py-1 rounded-2xl mt-3 cursor-pointer hover:bg-[var(--yellow-color)] hover:text-gray-800 transition-all duration-300 ease-in-out hover:shadow-lg transform hover:-translate-y-1 hover:brightness-110 hover:border-[var(--bg-color)]">Try a different category?</button></Link>
+            <Link to="/Category">
+              <button className="sm:text-xl border-2 bg-[var(--blue-color)] px-4 py-1 rounded-2xl mt-3 cursor-pointer hover:bg-[var(--yellow-color)] hover:text-gray-800 transition-all duration-300 ease-in-out hover:shadow-lg transform hover:-translate-y-1 hover:brightness-110 hover:border-[var(--bg-color)]">
+                Try a different category?
+              </button>
+            </Link>
           </div>
         </>
       )}
