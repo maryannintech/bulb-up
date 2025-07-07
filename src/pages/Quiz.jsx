@@ -135,11 +135,14 @@ export function Quiz() {
           style={{ backgroundColor: categoryColor }}
         >
           <div className="flex justify-between flex-wrap ">
-            <p>Category: {categoryName}</p>
-            <div>
+            <div className="flex flex-col items-start">
               <p>
                 Question: {currentQuestion + 1}/{quizData.length}
               </p>
+              <p>Category: {categoryName}</p>
+            </div>
+
+            <div>
               <p>Score: {currentScore}</p>
               <p>Best Score: {getBestScore()}</p>
             </div>
