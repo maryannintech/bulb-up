@@ -46,7 +46,6 @@ export function Quiz() {
         }
 
         const data = await response.json();
-        console.log("Quiz Data:", data.results);
 
         setQuizData(data.results);
         setQuestionChoices(
@@ -88,15 +87,16 @@ export function Quiz() {
 
   function handleChoiceClick(choice) {
     console.log(`You clicked: ${choice}`);
-    if (choice === quizData[0].correct_answer) {
+    if (choice === quizData[currentQuestion].correct_answer) {
       console.log("Correct answer!");
       let newScore = currentScore + 1;
       setCurrentScore(newScore);
-      setCurrentQuestion(currentQuestion + 1);
+      setScore(newScore);
     } else {
       console.log("Wrong answer!");
-      setCurrentQuestion(currentQuestion + 1);
     }
+
+    setCurrentQuestion(currentQuestion + 1);
   }
 
   function decodeHtml(html) {
@@ -105,54 +105,73 @@ export function Quiz() {
     return txt.value;
   }
 
+  const isQuizCompleted = currentQuestion >= quizData.length;
+
   return (
     <>
-      <div
-        className="mt-5 sm:mt-10 text-[var(--bg-color)] sm:text-2xl p-5 sm:p-10 sm:h-115 sm:overflow-hidden"
-        style={{ backgroundColor: categoryColor }}
-      >
-        <div className="flex justify-between flex-wrap ">
-          <p>Category: {categoryName}</p>
+      {!isQuizCompleted ? (
+        <div
+          className="mt-5 sm:mt-10 text-[var(--bg-color)] sm:text-2xl p-5 sm:p-10 sm:h-130 sm:overflow-hidden"
+          style={{ backgroundColor: categoryColor }}
+        >
+          <div className="flex justify-between flex-wrap ">
+            <p>Category: {categoryName}</p>
+            <div>
+              <p>
+                Question: {currentQuestion + 1}/{quizData.length}
+              </p>
+              <p>Score: {currentScore}</p>
+            </div>
+          </div>
           <div>
-            <p>Question: {currentQuestion + 1}/5</p>
-            <p>Score: {currentScore}</p>
+            <p className="text-center mt-5 text-xl sm:mt-10 sm:text-4xl">
+              {quizData.length > 0
+                ? decodeHtml(quizData[currentQuestion].question)
+                : "Loading question..."}
+            </p>
+            {selectedQuizType === "boolean" ? (
+              <div className="flex flex-col items-center mt-5 sm:mt-10 gap-4 mb-3">
+                <QuizChoicesButtons
+                  choices="True"
+                  handleChoiceClick={(choice) => handleChoiceClick(choice)}
+                />
+                <QuizChoicesButtons
+                  choices="False"
+                  handleChoiceClick={(choice) => handleChoiceClick(choice)}
+                />
+              </div>
+            ) : (
+              <div className="flex flex-col justify-center items-center mt-5 sm:mt-10 sm:grid sm:grid-cols-2 gap-4 sm:gap-5 sm:max-w-130 mx-auto">
+                {questionChoices.length > 0 &&
+                  questionChoices[currentQuestion].map((choice, index) => (
+                    <QuizChoicesButtons
+                      key={index}
+                      choices={decodeHtml(choice)}
+                      handleChoiceClick={(choice) => handleChoiceClick(choice)}
+                    />
+                  ))}
+              </div>
+            )}
           </div>
         </div>
-        <div>
-          <p className="text-center mt-5 text-xl sm:mt-10 sm:text-4xl">
-            {quizData.length > 0
-              ? decodeHtml(quizData[currentQuestion].question)
-              : "Loading question..."}
-          </p>
-          {selectedQuizType === "boolean" ? (
-            <div className="flex flex-col items-center mt-5 sm:mt-10 gap-4 mb-3">
-              <QuizChoicesButtons
-                choices="True"
-                handleChoiceClick={(choice) =>
-                  console.log(`You clicked: ${choice}`)
-                }
-              />
-              <QuizChoicesButtons
-                choices="False"
-                handleChoiceClick={(choice) =>
-                  console.log(`You clicked: ${choice}`)
-                }
-              />
+      ) : (
+        <>
+          <div className="text-[var(--bg-color)] flex flex-col justify-center items-center mt-10 bg-[var(--orange-color)] py-10 h-90">
+            <p className="text-2xl sm:text-3xl bg-[var(--orange-color)] mb-3">
+              Your brain bulb is up!
+            </p>
+            <div className="text-center rounded-2xl">
+              <p className="text-xl sm:text-2xl">
+                You got {currentScore} / {quizData.length}
+                <br />
+                {currentScore >= 3
+                  ? "Brilliant! You're really shining bright"
+                  : "Still glowing! Give it another shot"}
+              </p>
             </div>
-          ) : (
-            <div className="flex flex-col justify-center items-center mt-5 sm:mt-10 sm:grid sm:grid-cols-2 gap-4 sm:gap-5 sm:max-w-130 mx-auto">
-              {questionChoices.length > 0 &&
-                questionChoices[currentQuestion].map((choice, index) => (
-                  <QuizChoicesButtons
-                    key={index}
-                    choices={decodeHtml(choice)}
-                    handleChoiceClick={(choice) => handleChoiceClick(choice)}
-                  />
-                ))}
-            </div>
-          )}
-        </div>
-      </div>
+          </div>
+        </>
+      )}
     </>
   );
 }
