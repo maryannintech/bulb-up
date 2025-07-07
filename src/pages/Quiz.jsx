@@ -21,6 +21,10 @@ export function Quiz() {
   let lastFetched = 0;
 
   useEffect(() => {
+    let timer;
+    timer = setTimeout(fetchQuizData, 2000);
+    return () => clearTimeout(timer);
+    
     async function fetchQuizData() {
       const now = Date.now();
       if (now - lastFetched < 5000) return;
@@ -86,10 +90,10 @@ export function Quiz() {
   }
 
   function decodeHtml(html) {
-  const txt = document.createElement("textarea");
-  txt.innerHTML = html;
-  return txt.value;
-}
+    const txt = document.createElement("textarea");
+    txt.innerHTML = html;
+    return txt.value;
+  }
 
   return (
     <>
@@ -106,7 +110,9 @@ export function Quiz() {
         </div>
         <div>
           <p className="text-center mt-5 text-xl sm:mt-10 sm:text-4xl">
-            {quizData.length > 0 ? decodeHtml(quizData[0].question) : "Loading question..."}
+            {quizData.length > 0
+              ? decodeHtml(quizData[0].question)
+              : "Loading question..."}
           </p>
           {selectedQuizType === "boolean" ? (
             <div className="flex flex-col items-center mt-5 sm:mt-10 gap-4">
@@ -129,7 +135,7 @@ export function Quiz() {
                 questionChoices[0].map((choice, index) => (
                   <QuizChoicesButtons
                     key={index}
-                    choices={choice}
+                    choices={decodeHtml(choice)}
                     handleChoiceClick={(choice) => handleChoiceClick(choice)}
                   />
                 ))}
