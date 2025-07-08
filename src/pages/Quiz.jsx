@@ -139,7 +139,7 @@ export function Quiz() {
             <div className="flex flex-col items-start">
               <p>
                 Question: {currentQuestion + 1}/
-                {quizSettings.numOfQuestions || quizData.length}
+                {quizData.length}
               </p>
               <p>Category: {categoryName}</p>
             </div>
@@ -197,7 +197,7 @@ export function Quiz() {
               <p className="sm:text-xl">
                 {" "}
                 {(currentScore /
-                  (quizSettings.numOfQuestions || quizData.length)) *
+                  (quizData.length)) *
                   100 >=
                 80
                   ? "You're really shining bright!"
