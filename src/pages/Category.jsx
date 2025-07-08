@@ -63,7 +63,7 @@ export function Category() {
         <p className="text-center text-orange italic sm:text-xl font-medium">
           Set your preference
         </p>
-        <div className="flex justify-evenly items-center mt-4 flex-wrap">
+        <div className="flex justify-evenly items-center mt-4 flex-wrap px-15">
           <div className="flex flex-col items-center mb-2">
             <label htmlFor="difficulty">Set difficulty</label>
             <select
@@ -105,7 +105,7 @@ export function Category() {
             </select>
           </div>
 
-          <div className="search-input flex flex-col items-center">
+          <div className="search-input flex flex-col items-center mt-3">
             <label htmlFor="search-category">Search Category</label>
             <input
               id="search-category"
