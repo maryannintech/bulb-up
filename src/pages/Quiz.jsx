@@ -23,6 +23,7 @@ export function Quiz() {
   const [questionChoices, setQuestionChoices] = useState([]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [currentScore, setCurrentScore] = useState(0);
+  const [feedback, setFeedback] = useState("");
 
   function getBestScore() {
     return parseInt(
@@ -110,15 +111,21 @@ export function Quiz() {
   }
 
   function handleChoiceClick(choice) {
+    let feedbackMessage = "";
     console.log(`You clicked: ${choice}`);
     if (choice === quizData[currentQuestion].correct_answer) {
-      console.log("Correct answer!");
+      feedbackMessage = "✅ Correct!";
       let newScore = currentScore + 1;
       setCurrentScore(newScore);
     } else {
-      console.log("Wrong answer!");
+      feedbackMessage = `❌ Incorrect! The correct answer is: ${decodeHtml(
+        quizData[currentQuestion].correct_answer
+      )}`;
     }
-
+    setFeedback(feedbackMessage);
+    const timerId = setTimeout(() => {
+      setFeedback("");
+    }, 2000);
     setCurrentQuestion(currentQuestion + 1);
   }
 
@@ -138,8 +145,7 @@ export function Quiz() {
           <div className="flex justify-between flex-wrap ">
             <div className="flex flex-col items-start">
               <p>
-                Question: {currentQuestion + 1}/
-                {quizData.length}
+                Question: {currentQuestion + 1}/{quizData.length}
               </p>
               <p>Category: {categoryName}</p>
             </div>
@@ -178,6 +184,9 @@ export function Quiz() {
                   ))}
               </div>
             )}
+            <p className="text-xl text-[var(--bg-color)] text-center mt-4">
+              {feedback}
+            </p>
           </div>
         </div>
       ) : (
@@ -196,10 +205,7 @@ export function Quiz() {
               </p>
               <p className="sm:text-xl">
                 {" "}
-                {(currentScore /
-                  (quizData.length)) *
-                  100 >=
-                80
+                {(currentScore / quizData.length) * 100 >= 80
                   ? "You're really shining bright!"
                   : "Still glowing, give it another shot!"}
               </p>
