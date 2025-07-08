@@ -112,7 +112,6 @@ export function Quiz() {
 
   function handleChoiceClick(choice) {
     let feedbackMessage = "";
-    console.log(`You clicked: ${choice}`);
     if (choice === quizData[currentQuestion].correct_answer) {
       feedbackMessage = "✅ Correct!";
       let newScore = currentScore + 1;
@@ -184,7 +183,7 @@ export function Quiz() {
                   ))}
               </div>
             )}
-            <p className="text-xl text-[var(--bg-color)] text-center mt-4">
+            <p className="text-xl text-[var(--bg-color)] text-center mt-4 transition-all duration-500 ease-in-out animate-fade-in">
               {feedback}
             </p>
           </div>
