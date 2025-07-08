@@ -14,6 +14,7 @@ export function Quiz() {
     selectedQuizType = "multiple",
     categoryColor = "#D97524",
     categoryName = "General Knowledge",
+    numOfQuestions = 5,
   } = quizSettings;
 
   const [quizData, setQuizData] = useState([]);
@@ -61,7 +62,7 @@ export function Quiz() {
 
       try {
         const response = await fetch(
-          `https://opentdb.com/api.php?amount=5&category=${selectedCategory}&difficulty=${selectedDifficulty}&type=${selectedQuizType}`
+          `https://opentdb.com/api.php?amount=${numOfQuestions}&category=${selectedCategory}&difficulty=${selectedDifficulty}&type=${selectedQuizType}`
         );
 
         if (!response.ok) {
@@ -114,7 +115,6 @@ export function Quiz() {
       console.log("Correct answer!");
       let newScore = currentScore + 1;
       setCurrentScore(newScore);
-      
     } else {
       console.log("Wrong answer!");
     }
@@ -138,7 +138,8 @@ export function Quiz() {
           <div className="flex justify-between flex-wrap ">
             <div className="flex flex-col items-start">
               <p>
-                Question: {currentQuestion + 1}/{quizData.length}
+                Question: {currentQuestion + 1}/
+                {quizSettings.numOfQuestions || quizData.length}
               </p>
               <p>Category: {categoryName}</p>
             </div>
@@ -184,7 +185,7 @@ export function Quiz() {
           <div className="text-[var(--bg-color)] flex flex-col justify-center items-center mt-10 bg-[#D95724] py-10 h-90 select-none animate-slide-in-left">
             <p className="text-xl sm:text-2xl mb-3">
               {currentScore > getBestScore()
-                ? `New best score ${currentScore}!`
+                ? `New best score!`
                 : `Current best score: ${getBestScore()}`}
             </p>
             <p className="text-2xl sm:text-4xl mb-3">Your brain bulb is up💡</p>
@@ -195,7 +196,10 @@ export function Quiz() {
               </p>
               <p className="sm:text-xl">
                 {" "}
-                {currentScore >= 3
+                {(currentScore /
+                  (quizSettings.numOfQuestions || quizData.length)) *
+                  100 >=
+                80
                   ? "You're really shining bright!"
                   : "Still glowing, give it another shot!"}
               </p>

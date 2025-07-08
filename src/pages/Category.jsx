@@ -9,6 +9,13 @@ export function Category() {
   const [quizType, setQuizType] = useState("multiple");
   const [searchCategory, setSearchCategory] = useState("");
   const [categoryName, setCategoryName] = useState("");
+  const [numOfQuestions, setNumOfQuestions] = useState(5);
+
+  let numQuestions = [];
+
+  for (let i = 5; i <= 50; i += 5) {
+    numQuestions.push(i);
+  }
 
   const navigate = useNavigate();
 
@@ -23,6 +30,7 @@ export function Category() {
         selectedQuizType: quizType,
         categoryColor: categoryColor,
         categoryName: cat.name,
+        numOfQuestions: numOfQuestions,
       },
     });
   }
@@ -37,6 +45,10 @@ export function Category() {
 
   function handleSearchChange(e) {
     setSearchCategory(e.target.value);
+  }
+
+  function handleNumQuestionsChange(e) {
+    setNumOfQuestions(e.target.value);
   }
 
   return (
@@ -71,6 +83,20 @@ export function Category() {
               <option value="boolean">True or False</option>
             </select>
           </div>
+
+          <div className="flex flex-col items-center mb-2">
+            <label htmlFor="num-questions">Set number of quiz</label>
+            <select
+              id="num-questions"
+              className="input-category"
+              onChange={handleNumQuestionsChange}
+            >
+              {numQuestions.map((num) => (
+                <option key={num} value={num}>{num}</option>
+              ))}
+            </select>
+          </div>
+
           <div className="search-input flex flex-col items-center">
             <label htmlFor="search-category">Search Category</label>
             <input
