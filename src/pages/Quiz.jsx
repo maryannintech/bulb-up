@@ -91,7 +91,7 @@ export function Quiz() {
         setLoading(false);
       }
     }
-  }, [selectedCategory, selectedDifficulty, selectedQuizType]);
+  }, [selectedCategory, selectedDifficulty, selectedQuizType, numOfQuestions]);
 
   if (loading) {
     return (
