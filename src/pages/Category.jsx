@@ -1,6 +1,6 @@
 import { allCategories } from "../data/categories";
 import { CategoryCard } from "../components/CategoryCard";
-import { useState, useEffect } from "react";
+import { useState, useEffect, use } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 export function Category() {
@@ -44,8 +44,14 @@ export function Category() {
   }
 
   function handleSearchChange(e) {
-    setSearchCategory(e.target.value);
+    if (e.key === "Enter") {
+      setSearchCategory(e.target.value);
+    }
   }
+
+  useEffect(() => {
+    console.log("Selected category:", searchCategory);
+  }, [searchCategory]);
 
   function handleNumQuestionsChange(e) {
     setNumOfQuestions(e.target.value);
@@ -92,7 +98,9 @@ export function Category() {
               onChange={handleNumQuestionsChange}
             >
               {numQuestions.map((num) => (
-                <option key={num} value={num}>{num}</option>
+                <option key={num} value={num}>
+                  {num}
+                </option>
               ))}
             </select>
           </div>
@@ -104,11 +112,11 @@ export function Category() {
               type="text"
               placeholder="Search for a category"
               className="input-category"
-              value={searchCategory}
-              onChange={handleSearchChange}
+              onKeyDown={(e) => handleSearchChange(e)}
             />
           </div>
         </div>
+
 
         <div className="px-5 sm:pl-10 mt-4 sm:text-xl mb-5">
           <div>
