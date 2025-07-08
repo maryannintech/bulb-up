@@ -183,7 +183,7 @@ export function Quiz() {
                   ))}
               </div>
             )}
-            <p className="text-xl text-[var(--bg-color)] text-center mt-4 transition-all duration-500 ease-in-out animate-fade-in">
+            <p className="sm:text-xl text-[var(--bg-color)] text-center mt-4 transition-all duration-500 ease-in-out animate-fade-in">
               {feedback}
             </p>
           </div>
@@ -203,7 +203,6 @@ export function Quiz() {
                 You got: {currentScore} / {quizData.length}
               </p>
               <p className="sm:text-xl">
-                {" "}
                 {(currentScore / quizData.length) * 100 >= 80
                   ? "You're really shining bright!"
                   : "Still glowing, give it another shot!"}

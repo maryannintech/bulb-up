@@ -117,7 +117,6 @@ export function Category() {
           </div>
         </div>
 
-
         <div className="px-5 sm:pl-10 mt-4 sm:text-xl mb-5">
           <div>
             <p>Science</p>
@@ -136,7 +135,7 @@ export function Category() {
             </div>
           </div>
 
-          <div className="sm:mt-4">
+          <div className="mt-3 sm:mt-4">
             <p>History</p>
             <div className="flex gap-5 mt-2 items-center overflow-x-auto">
               {allCategories.history.map((cat) => (
@@ -187,7 +186,7 @@ export function Category() {
             </div>
           </div>
 
-          <div>
+          <div className="mt-4 sm:mt-5">
             <p>Geography</p>
             <div className="flex gap-5 mt-2 items-center overflow-x-auto">
               {allCategories.geography.map((cat) => (
@@ -199,23 +198,6 @@ export function Category() {
                     handleCategoryClick(category, "#9A8B51")
                   }
                   color="#9A8B51"
-                />
-              ))}
-            </div>
-          </div>
-
-          <div className="mt-4 ">
-            <p>Art</p>
-            <div className="flex gap-5 mt-2 items-center overflow-x-auto">
-              {allCategories.art.map((cat) => (
-                <CategoryCard
-                  key={cat.id}
-                  categoryName={cat.name}
-                  category={cat}
-                  functionHandle={(category) =>
-                    handleCategoryClick(category, "#9A8B51")
-                  }
-                  color="#951A7F"
                 />
               ))}
             </div>
