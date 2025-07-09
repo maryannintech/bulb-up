@@ -1,9 +1,10 @@
-export function TermsAndDefinition() {
+export function TermsAndDefinition({ questionNumber, handleAddQuestion }) {
   return (
     <>
-      <div className="">
-        <div className="flex justify-center flex-col items-center gap-5 mt-3 flex-wrap py-4 animation-soft-pop-in">
-          <div className="flex justify-center items-center gap-2">
+      <div className="bg-gray-500  border-t-1 border-b-1 sm:border-1 sm:rounded-xl mt-5 sm:w-120 mx-auto px-10 text-[var(--bg-color)]">
+        <p className="pt-3 text-xl">Question: {questionNumber}</p>
+        <div className="flex justify-center flex-col items-center gap-2 mt-3 flex-wrap  animation-soft-pop-in">
+          <div>
             <input
               id="term-input"
               placeholder="Enter term"
@@ -14,8 +15,8 @@ export function TermsAndDefinition() {
             Term
           </label>
         </div>
-        <div className="flex justify-center flex-col items-center gap-5 flex-wrap py-4 animation-soft-pop-in">
-          <div className="flex justify-center items-center gap-2">
+        <div className="flex justify-center flex-col items-center gap-2 flex-wrap  animation-soft-pop-in">
+          <div>
             <input
               id="definition-input"
               placeholder="Enter definition"
@@ -25,6 +26,21 @@ export function TermsAndDefinition() {
           <label htmlFor="defition-input" className="text-[var(--bg-color)]">
             Definition
           </label>
+        </div>
+        <div className="flex justify-center items-center gap-2 mt-3 mb-3">
+          <button
+            className="text-xl cursor-pointer bg-[var(--bg-color)] text-gray-500 hover:text-[var(--bg-color)] hover:bg-gray-600 w-10 h-10 rounded-full flex justify-center items-center transition-all duration-300"
+            title="Delete question"
+          >
+            <i className="bx  bx-trash"></i>
+          </button>
+          <button
+            className="text-xl cursor-pointer bg-[var(--bg-color)] text-gray-500 hover:text-[var(--bg-color)] hover:bg-gray-600 w-10 h-10 rounded-full flex justify-center items-center transition-all duration-300"
+            title="Add new question"
+            onClick={handleAddQuestion}
+          >
+            <i className="bx  bx-plus"></i>
+          </button>
         </div>
       </div>
     </>

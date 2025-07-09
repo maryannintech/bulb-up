@@ -4,6 +4,20 @@ export function CreateQuiz() {
   const [searchCategory, setSearchCategory] = useState("");
   const [quizzes, setQuizzes] = useState([]);
   const [makeQuiz, setMakeQuiz] = useState(false);
+  const [questions, setQuestions] = useState([1]); // Changed to array
+
+  function handleMakeQuiz() {
+    if (makeQuiz) {
+      setMakeQuiz(false);
+      setQuestions([1]); // Reset to single question
+    } else {
+      setMakeQuiz(true);
+    }
+  }
+
+  function handleAddQuestion() {
+    setQuestions((prev) => [...prev, prev.length + 1]);
+  }
 
   return (
     <>
@@ -26,16 +40,19 @@ export function CreateQuiz() {
           <button
             className="cursor-pointer fixed bottom-6 right-6 bg-[var(--orange-color)] text-white w-14 h-14 rounded-full shadow-lg hover:shadow-xl hover:scale-110 hover:bg-orange-600 transition-all duration-300 ease-in-out flex items-center justify-center text-2xl font-bold z-50 transform hover:rotate-90"
             title="Create Quiz"
-            onClick={() => setMakeQuiz(true)}
+            onClick={handleMakeQuiz}
           >
-            +
+            <i className="bx  bx-plus"></i>
           </button>
         </div>
-        <div>
+        <div className="mt-5">
           {makeQuiz ? (
             <>
-              <div className="bg-[#5C9A51]">
-                <div className="flex justify-center gap-5 items-center mt-3 flex-wrap py-4 animation-soft-pop-in">
+              <div className="bg-gray-600   py-4">
+                <p className="text-center text-[var(--bg-color)] sm:text-2xl">
+                  Create your quiz
+                </p>
+                <div className="flex justify-center gap-5 items-center flex-wrap py-4 animation-soft-pop-in">
                   <div>
                     <label
                       htmlFor="title-input"
@@ -70,10 +87,19 @@ export function CreateQuiz() {
                   </div>
                 </div>
 
-                <div>
-                  <TermsAndDefinition />
+                <div className="questions-container">
+                  <p className="text-center text-[var(--bg-color)] sm:text-xl">
+                    Add your terms and defitions
+                  </p>
+                  {questions.map((questionNum) => (
+                    <TermsAndDefinition
+                      key={questionNum}
+                      questionNumber={questionNum}
+                      handleAddQuestion={handleAddQuestion}
+                    />
+                  ))}
                 </div>
-                <div></div>
+                <div className="flex flex-col justify-center align-center"></div>
               </div>
             </>
           ) : (
