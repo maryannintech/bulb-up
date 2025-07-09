@@ -97,7 +97,7 @@ export function CreateQuiz() {
 
                 <div className="questions-container">
                   <p className="text-center text-[var(--bg-color)] sm:text-xl">
-                    Add your terms and defitions
+                    Add your terms and definitions
                   </p>
                   {questions.map((questionNum, index) => (
                     <TermsAndDefinition
