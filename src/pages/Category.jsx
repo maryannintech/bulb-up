@@ -202,6 +202,23 @@ export function Category() {
               ))}
             </div>
           </div>
+
+           <div className="mt-4 sm:mt-5">
+            <p>Art</p>
+            <div className="flex gap-5 mt-2 items-center overflow-x-auto">
+              {allCategories.art.map((cat) => (
+                <CategoryCard
+                  key={cat.id}
+                  categoryName={cat.name}
+                  category={cat}
+                  functionHandle={(category) =>
+                    handleCategoryClick(category, "#E34040")
+                  }
+                  color="#E34040"
+                />
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </>
