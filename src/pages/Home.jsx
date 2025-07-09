@@ -10,7 +10,7 @@ export function Home() {
             Bulb Up is a quiz website designed to brighten your brain, one quiz
             at a time. Whether you're reviewing trivia, testing your memory, or
             creating your own custom questions, Bulb Up helps you learn in a fun
-            way
+            way.
             <br />
             <br />
             Built with simplicity in mind, it's your space to grow knowledge at
