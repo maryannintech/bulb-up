@@ -119,7 +119,16 @@ export function CreateQuiz() {
               </div>
             </>
           ) : (
-            <></>
+            <div>
+              {quizzes.length == 0 ? (
+                <p className=" sm:pt-5 px-4 text-center sm:text-xl text-gray-600">
+                  No quizzes created yet. Click the + button to create your
+                  first quiz.
+                </p>
+              ) : (
+                <></>
+              )}
+            </div>
           )}
         </div>
       </div>
