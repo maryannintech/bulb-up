@@ -34,6 +34,11 @@ export const historyCategories = [
     name: "History",
     value: "23",
   },
+  {
+    id: uuidv4(),
+    name: "Mythology",
+    value: "20",
+  },
 ];
 
 export const genKnowledgeCategories = [
