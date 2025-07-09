@@ -1,5 +1,6 @@
 import { ChoicesButton } from "../components/ChoicesButton";
 import { Link } from "react-router-dom";
+import { Footer } from "../components/Footer";
 export function Home() {
   return (
     <>
@@ -9,13 +10,13 @@ export function Home() {
             Bulb Up is a quiz website designed to brighten your brain, one quiz
             at a time. Whether you're reviewing trivia, testing your memory, or
             creating your own custom questions, Bulb Up helps you learn in a fun
-            and gentle way.
+            way
             <br />
             <br />
             Built with simplicity in mind, it's your space to grow knowledge at
-            your own pace—no pressure, just progress. Our diverse quiz content
-            is powered by the Open Trivia Database API, bringing you thousands
-            of questions across multiple categories and difficulty levels.
+            your own pace. Our diverse quiz content is powered by the Open
+            Trivia Database API, bringing you thousands of questions across
+            multiple categories and difficulty levels.
           </p>
         </div>
         <div>
@@ -42,6 +43,7 @@ export function Home() {
               />
             </Link>
           </div>
+          <Footer />
         </div>
       </div>
     </>
