@@ -40,7 +40,7 @@ export function TermsAndDefinition({
             <i className="bx  bx-plus"></i>
           </button>
           <button
-            className="text-xl cursor-pointer bg-[var(--bg-color)] text-gray-500 hover:text-[var(--bg-color)] hover:bg-gray-600 w-10 h-10 rounded-full flex justify-center items-center transition-all duration-300"
+            className="text-xl cursor-pointer bg-[var(--bg-color)] text-gray-500 hover:text-[var(--bg-color)] hover:bg-red-700 w-10 h-10 rounded-full flex justify-center items-center transition-all duration-300"
             title="Delete question"
             onClick={handleDeleteQuestion}
           >

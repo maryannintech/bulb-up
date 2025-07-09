@@ -20,7 +20,7 @@ export function CreateQuiz() {
 
   function handleAddQuestion() {
     setQuestions((prev) => [...prev, nextQuestionId]);
-    setNextQuestionId((prev) => prev + 1); // Increment for next time
+    setNextQuestionId((prev) => prev + 1); 
   }
 
   function handleDeleteQuestion(key) {
