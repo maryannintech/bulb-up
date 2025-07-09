@@ -72,6 +72,9 @@ export function Quiz() {
 
         const data = await response.json();
 
+        if (data.results.length === 0) {
+          throw new Error("No questions found for the selected criteria.");
+        }
         setQuizData(data.results);
         setQuestionChoices(
           data.results.map((question) => {
@@ -103,11 +106,29 @@ export function Quiz() {
   }
 
   if (error) {
-    return (
-      <div className="h-screen flex items-center justify-center">
-        <p className="text-2xl text-red-500">Error: {error}</p>
-      </div>
-    );
+    if (error === "No questions found for the selected criteria.") {
+      return (
+        <div className="h-screen flex items-center justify-center flex-col">
+          <p className="text-xl sm:text-2xl text-[var(--orange-color)] text-center">
+            No questions found for the selected criteria. Please try different
+            settings.
+          </p>
+          <Link to="/Category">
+            <button className="sm:text-xl border-none bg-[var(--orange-color)] text-[var(--bg-color)] px-4 py-1 rounded-2xl mt-3 cursor-pointer hover:bg-[var(--yellow-color)] hover:text-black transition-all duration-300 ease-in-out hover:shadow-lg transform hover:-translate-y-1 hover:brightness-110">
+             Go back to categories
+            </button>
+          </Link>
+        </div>
+      );
+    } else {
+      return (
+        <div className="h-screen flex items-center justify-center">
+          <p className="text-xl sm:text-2xl text-[var(--orange-color)] text-center">
+            Error: {error}. Sorry for the inconvenience, please try again later.
+          </p>
+        </div>
+      );
+    }
   }
 
   function handleChoiceClick(choice) {
