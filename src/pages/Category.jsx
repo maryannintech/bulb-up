@@ -159,7 +159,7 @@ export function Category() {
               {searchCategory && (
                 <button
                   onClick={clearSearch}
-                  className="cursor-pointer text-[var(--bg-color)] p-4 rounded-full w-5 h-5 bg-[var(--blue-color)] hover:bg-[var(--orange-color)] hover:scale-105 hover:shadow-md transition-all duration-200 ease-in-out transform hover:brightness-110"
+                  className="cursor-pointer text-[var(--bg-color)] px-3 py-1 rounded-full bg-[var(--blue-color)] hover:bg-[var(--orange-color)] hover:scale-105 hover:shadow-md transition-all duration-200 ease-in-out transform hover:brightness-110"
                   title="Clear search"
                 >
                   ✕
