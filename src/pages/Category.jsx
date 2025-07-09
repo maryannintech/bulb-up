@@ -1,6 +1,6 @@
 import { allCategories } from "../data/categories";
 import { CategoryCard } from "../components/CategoryCard";
-import { useState, useEffect, use } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Footer } from "../components/Footer";
 
@@ -11,9 +11,9 @@ export function Category() {
   const [searchCategory, setSearchCategory] = useState("");
   const [categoryName, setCategoryName] = useState("");
   const [numOfQuestions, setNumOfQuestions] = useState(5);
+  const [searchResults, setSearchResults] = useState([]);
 
   let numQuestions = [];
-
   for (let i = 5; i <= 50; i += 5) {
     numQuestions.push(i);
   }
@@ -44,23 +44,63 @@ export function Category() {
     setQuizType(e.target.value);
   }
 
-  function handleSearchChange(e) {
-    if (e.key === "Enter") {
-      setSearchCategory(e.target.value);
+  function searchThroughAllCategories(searchTerm) {
+    if (!searchTerm.trim()) {
+      setSearchResults([]);
+      return;
     }
+
+    const results = [];
+    const searchLower = searchTerm.toLowerCase();
+
+    Object.entries(allCategories).forEach(([groupName, categories]) => {
+      categories.forEach((cat) => {
+        if (cat.name.toLowerCase().includes(searchLower)) {
+          results.push({
+            ...cat,
+            groupName: groupName,
+            color: getCategoryGroupColor(groupName),
+          });
+        }
+      });
+    });
+
+    setSearchResults(results);
   }
 
-  useEffect(() => {
-    console.log("Selected category:", searchCategory);
-  }, [searchCategory]);
+  function getCategoryGroupColor(groupName) {
+    const colorMap = {
+      science: "#5C9A51",
+      history: "#516F9A",
+      politics: "#9A5151",
+      entertainment: "#91519A",
+      geography: "#9A8B51",
+      art: "#E34040",
+    };
+    return colorMap[groupName] || "#666666";
+  }
+
+  function handleSearchChange(e) {
+    if (e.key === "Enter") {
+      const searchTerm = e.target.value;
+      setSearchCategory(searchTerm);
+      searchThroughAllCategories(searchTerm);
+    }
+  }
 
   function handleNumQuestionsChange(e) {
     setNumOfQuestions(e.target.value);
   }
 
+  function clearSearch() {
+    setSearchCategory("");
+    setSearchResults([]);
+    document.getElementById("search-category").value = "";
+  }
+
   return (
     <>
-      <div className="mt-5 animation-soft-pop-in ">
+      <div className="mt-5 animation-soft-pop-in">
         <p className="text-center text-orange italic sm:text-xl font-medium">
           Set your preference
         </p>
@@ -108,19 +148,63 @@ export function Category() {
 
           <div className="search-input flex flex-col items-center mt-3">
             <label htmlFor="search-category">Search Category</label>
-            <input
-              id="search-category"
-              type="text"
-              placeholder="Search for a category"
-              className="input-category"
-              onKeyDown={(e) => handleSearchChange(e)}
-            />
+            <div className="flex items-center gap-2">
+              <input
+                id="search-category"
+                type="text"
+                placeholder="Search for a category (e.g., 'music', 'history')"
+                className="input-category"
+                onKeyDown={(e) => handleSearchChange(e)}
+              />
+              {searchCategory && (
+                <button
+                  onClick={clearSearch}
+                  className="cursor-pointer text-[var(--bg-color)] p-4 rounded-full w-5 h-5 bg-[var(--blue-color)] hover:bg-[var(--orange-color)] hover:scale-105 hover:shadow-md transition-all duration-200 ease-in-out transform hover:brightness-110"
+                  title="Clear search"
+                >
+                  ✕
+                </button>
+              )}
+            </div>
           </div>
         </div>
 
         <div className="px-5 sm:pl-10 mt-4 sm:text-xl mb-5">
           {searchCategory ? (
-            <p>Search result for {searchCategory}</p>
+            <>
+              {searchResults.length > 0 ? (
+                <>
+                  <div className="flex items-center justify-between">
+                    <p>Search results for: "{searchCategory}"</p>
+                  </div>
+                  <div className="flex gap-5 mt-2 items-center overflow-x-auto flex-wrap">
+                    {searchResults.map((cat) => (
+                      <CategoryCard
+                        key={cat.id}
+                        categoryName={cat.name}
+                        category={cat}
+                        functionHandle={(category) =>
+                          handleCategoryClick(category, cat.color)
+                        }
+                        color={cat.color}
+                      />
+                    ))}
+                  </div>
+                </>
+              ) : (
+                <div>
+                  <p className="text-red-500 mt-2">
+                    No categories found for "{searchCategory}"
+                  </p>
+                  <button
+                    onClick={clearSearch}
+                    className="cursor-pointer text-sm bg-[var(--blue-color)] hover:bg-[var(--orange-color)] text-white px-3 py-1 rounded-full mt-2 transition-colors"
+                  >
+                    Show all categories
+                  </button>
+                </div>
+              )}
+            </>
           ) : (
             <>
               <div>
