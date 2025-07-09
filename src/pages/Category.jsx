@@ -2,6 +2,7 @@ import { allCategories } from "../data/categories";
 import { CategoryCard } from "../components/CategoryCard";
 import { useState, useEffect, use } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { Footer } from "../components/Footer";
 
 export function Category() {
   const [category, setCategory] = useState("");
@@ -220,6 +221,7 @@ export function Category() {
             </div>
           </div>
         </div>
+        <Footer/>
       </div>
     </>
   );

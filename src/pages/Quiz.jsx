@@ -115,7 +115,7 @@ export function Quiz() {
           </p>
           <Link to="/Category">
             <button className="sm:text-xl border-none bg-[var(--orange-color)] text-[var(--bg-color)] px-4 py-1 rounded-2xl mt-3 cursor-pointer hover:bg-[var(--yellow-color)] hover:text-black transition-all duration-300 ease-in-out hover:shadow-lg transform hover:-translate-y-1 hover:brightness-110">
-             Go back to categories
+              Go back to categories
             </button>
           </Link>
         </div>
