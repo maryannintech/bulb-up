@@ -1,22 +1,30 @@
 import { useState, useEffect } from "react";
 import { TermsAndDefinition } from "../components/TermsAndDefinition";
+
 export function CreateQuiz() {
   const [searchCategory, setSearchCategory] = useState("");
   const [quizzes, setQuizzes] = useState([]);
   const [makeQuiz, setMakeQuiz] = useState(false);
-  const [questions, setQuestions] = useState([1]); // Changed to array
+  const [questions, setQuestions] = useState([1]);
+  const [nextQuestionId, setNextQuestionId] = useState(2);
 
   function handleMakeQuiz() {
     if (makeQuiz) {
       setMakeQuiz(false);
-      setQuestions([1]); // Reset to single question
+      setQuestions([1]);
+      setNextQuestionId(2);
     } else {
       setMakeQuiz(true);
     }
   }
 
   function handleAddQuestion() {
-    setQuestions((prev) => [...prev, prev.length + 1]);
+    setQuestions((prev) => [...prev, nextQuestionId]);
+    setNextQuestionId((prev) => prev + 1); // Increment for next time
+  }
+
+  function handleDeleteQuestion(key) {
+    setQuestions((prev) => prev.filter((q) => q !== key));
   }
 
   return (
@@ -91,11 +99,14 @@ export function CreateQuiz() {
                   <p className="text-center text-[var(--bg-color)] sm:text-xl">
                     Add your terms and defitions
                   </p>
-                  {questions.map((questionNum) => (
+                  {questions.map((questionNum, index) => (
                     <TermsAndDefinition
                       key={questionNum}
-                      questionNumber={questionNum}
+                      questionNumber={index + 1}
                       handleAddQuestion={handleAddQuestion}
+                      handleDeleteQuestion={() =>
+                        handleDeleteQuestion(questionNum)
+                      }
                     />
                   ))}
                 </div>
