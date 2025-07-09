@@ -20,10 +20,10 @@ export function Navbar() {
             <button className="nav-bar-button">Home</button>
           </Link>
           <Link to={"/Category"}>
-            <button className="nav-bar-button">Play Quiz</button>
+            <button className="nav-bar-button">Take Quiz</button>
           </Link>
           <Link to={"/CreateQuiz"}>
-            <button className="nav-bar-button">Create Quiz</button>
+            <button className="nav-bar-button">My Quizzes</button>
           </Link>
         </div>
       </div>
