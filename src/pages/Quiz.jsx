@@ -138,7 +138,7 @@ export function Quiz() {
       let newScore = currentScore + 1;
       setCurrentScore(newScore);
     } else {
-      feedbackMessage = `❌ Incorrect! The correct answer is: ${decodeHtml(
+      feedbackMessage = `✖️ Incorrect! The correct answer is: ${decodeHtml(
         quizData[currentQuestion].correct_answer
       )}`;
     }

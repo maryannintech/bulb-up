@@ -132,7 +132,7 @@ export function Category() {
           </div>
 
           <div className="flex flex-col items-center mb-2">
-            <label htmlFor="num-questions">Set number of quiz</label>
+            <label htmlFor="num-questions">Set number of question</label>
             <select
               id="num-questions"
               className="input-category"
