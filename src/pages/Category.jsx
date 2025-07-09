@@ -119,107 +119,113 @@ export function Category() {
         </div>
 
         <div className="px-5 sm:pl-10 mt-4 sm:text-xl mb-5">
-          <div>
-            <p>Science</p>
-            <div className="flex gap-5 mt-2 items-center overflow-x-auto">
-              {allCategories.science.map((cat) => (
-                <CategoryCard
-                  key={cat.id}
-                  categoryName={cat.name}
-                  category={cat}
-                  functionHandle={(category) =>
-                    handleCategoryClick(category, "#5C9A51")
-                  }
-                  color="#5C9A51"
-                />
-              ))}
-            </div>
-          </div>
+          {searchCategory ? (
+            <p>Search result for {searchCategory}</p>
+          ) : (
+            <>
+              <div>
+                <p>Science</p>
+                <div className="flex gap-5 mt-2 items-center overflow-x-auto">
+                  {allCategories.science.map((cat) => (
+                    <CategoryCard
+                      key={cat.id}
+                      categoryName={cat.name}
+                      category={cat}
+                      functionHandle={(category) =>
+                        handleCategoryClick(category, "#5C9A51")
+                      }
+                      color="#5C9A51"
+                    />
+                  ))}
+                </div>
+              </div>
 
-          <div className="mt-3 sm:mt-4">
-            <p>History</p>
-            <div className="flex gap-5 mt-2 items-center overflow-x-auto">
-              {allCategories.history.map((cat) => (
-                <CategoryCard
-                  key={cat.id}
-                  categoryName={cat.name}
-                  category={cat}
-                  functionHandle={(category) =>
-                    handleCategoryClick(category, "#516F9A")
-                  }
-                  color="#516F9A"
-                />
-              ))}
-            </div>
-          </div>
+              <div className="mt-3 sm:mt-4">
+                <p>History</p>
+                <div className="flex gap-5 mt-2 items-center overflow-x-auto">
+                  {allCategories.history.map((cat) => (
+                    <CategoryCard
+                      key={cat.id}
+                      categoryName={cat.name}
+                      category={cat}
+                      functionHandle={(category) =>
+                        handleCategoryClick(category, "#516F9A")
+                      }
+                      color="#516F9A"
+                    />
+                  ))}
+                </div>
+              </div>
 
-          <div className="mt-4 sm:mt-4">
-            <p>Politics</p>
-            <div className="flex gap-5 mt-2 items-center overflow-x-auto">
-              {allCategories.politics.map((cat) => (
-                <CategoryCard
-                  key={cat.id}
-                  categoryName={cat.name}
-                  category={cat}
-                  functionHandle={(category) =>
-                    handleCategoryClick(category, "#9A5151")
-                  }
-                  color="#9A5151"
-                />
-              ))}
-            </div>
-          </div>
+              <div className="mt-4 sm:mt-4">
+                <p>Politics</p>
+                <div className="flex gap-5 mt-2 items-center overflow-x-auto">
+                  {allCategories.politics.map((cat) => (
+                    <CategoryCard
+                      key={cat.id}
+                      categoryName={cat.name}
+                      category={cat}
+                      functionHandle={(category) =>
+                        handleCategoryClick(category, "#9A5151")
+                      }
+                      color="#9A5151"
+                    />
+                  ))}
+                </div>
+              </div>
 
-          <div className="mt-4 sm:mt-5">
-            <p>Entertainment</p>
-            <div className="flex gap-5 mt-2 items-center overflow-x-auto">
-              {allCategories.entertainment.map((cat) => (
-                <CategoryCard
-                  key={cat.id}
-                  categoryName={cat.name}
-                  category={cat}
-                  functionHandle={(category) =>
-                    handleCategoryClick(category, "#91519A")
-                  }
-                  color="#91519A"
-                />
-              ))}
-            </div>
-          </div>
+              <div className="mt-4 sm:mt-5">
+                <p>Entertainment</p>
+                <div className="flex gap-5 mt-2 items-center overflow-x-auto">
+                  {allCategories.entertainment.map((cat) => (
+                    <CategoryCard
+                      key={cat.id}
+                      categoryName={cat.name}
+                      category={cat}
+                      functionHandle={(category) =>
+                        handleCategoryClick(category, "#91519A")
+                      }
+                      color="#91519A"
+                    />
+                  ))}
+                </div>
+              </div>
 
-          <div className="mt-4 sm:mt-5">
-            <p>Geography</p>
-            <div className="flex gap-5 mt-2 items-center overflow-x-auto">
-              {allCategories.geography.map((cat) => (
-                <CategoryCard
-                  key={cat.id}
-                  categoryName={cat.name}
-                  category={cat}
-                  functionHandle={(category) =>
-                    handleCategoryClick(category, "#9A8B51")
-                  }
-                  color="#9A8B51"
-                />
-              ))}
-            </div>
-          </div>
+              <div className="mt-4 sm:mt-5">
+                <p>Geography</p>
+                <div className="flex gap-5 mt-2 items-center overflow-x-auto">
+                  {allCategories.geography.map((cat) => (
+                    <CategoryCard
+                      key={cat.id}
+                      categoryName={cat.name}
+                      category={cat}
+                      functionHandle={(category) =>
+                        handleCategoryClick(category, "#9A8B51")
+                      }
+                      color="#9A8B51"
+                    />
+                  ))}
+                </div>
+              </div>
 
-          <div className="mt-4 sm:mt-5">
-            <p>Art</p>
-            <div className="flex gap-5 mt-2 items-center overflow-x-auto">
-              {allCategories.art.map((cat) => (
-                <CategoryCard
-                  key={cat.id}
-                  categoryName={cat.name}
-                  category={cat}
-                  functionHandle={(category) =>
-                    handleCategoryClick(category, "#E34040")
-                  }
-                  color="#E34040"
-                />
-              ))}
-            </div>
-          </div>
+              <div className="mt-4 sm:mt-5">
+                <p>Art</p>
+                <div className="flex gap-5 mt-2 items-center overflow-x-auto">
+                  {allCategories.art.map((cat) => (
+                    <CategoryCard
+                      key={cat.id}
+                      categoryName={cat.name}
+                      category={cat}
+                      functionHandle={(category) =>
+                        handleCategoryClick(category, "#E34040")
+                      }
+                      color="#E34040"
+                    />
+                  ))}
+                </div>
+              </div>
+            </>
+          )}
         </div>
         <Footer />
       </div>

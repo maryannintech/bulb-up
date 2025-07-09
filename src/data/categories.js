@@ -100,6 +100,11 @@ export const entertainmentCategories = [
     name: "Animations",
     value: "32",
   },
+  {
+    id: uuidv4(),
+    name: "Sports",
+    value: "21",
+  },
 ];
 
 export const politicsCategories = [
