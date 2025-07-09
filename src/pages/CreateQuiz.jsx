@@ -56,7 +56,7 @@ export function CreateQuiz() {
         <div className="mt-5">
           {makeQuiz ? (
             <>
-              <div className="bg-gray-600   py-4">
+              <div className="bg-gray-600 py-4 sm:py-10">
                 <p className="text-center text-[var(--bg-color)] sm:text-2xl">
                   Create your quiz
                 </p>
