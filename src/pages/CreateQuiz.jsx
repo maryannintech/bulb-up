@@ -20,11 +20,16 @@ export function CreateQuiz() {
 
   function handleAddQuestion() {
     setQuestions((prev) => [...prev, nextQuestionId]);
-    setNextQuestionId((prev) => prev + 1); 
+    setNextQuestionId((prev) => prev + 1);
   }
 
   function handleDeleteQuestion(key) {
-    setQuestions((prev) => prev.filter((q) => q !== key));
+    if (questions.length <= 1) {
+      setMakeQuiz(false);
+      setQuestions([1]);
+    } else {
+      setQuestions((prev) => prev.filter((q) => q !== key));
+    }
   }
 
   return (
