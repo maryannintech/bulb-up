@@ -7,6 +7,8 @@ export function CreateQuiz() {
   const [makeQuiz, setMakeQuiz] = useState(false);
   const [questions, setQuestions] = useState([1]);
   const [nextQuestionId, setNextQuestionId] = useState(2);
+  const [saveQuiz, setSaveQuiz] = useState(false);
+  
 
   function handleMakeQuiz() {
     if (makeQuiz) {
@@ -32,6 +34,8 @@ export function CreateQuiz() {
     }
   }
 
+
+
   return (
     <>
       <div className="mt-4 animation-soft-pop-in">
@@ -52,10 +56,14 @@ export function CreateQuiz() {
         <div>
           <button
             className="cursor-pointer fixed bottom-6 right-6 bg-[var(--orange-color)] text-white w-14 h-14 rounded-full shadow-lg hover:shadow-xl hover:scale-110 hover:bg-orange-600 transition-all duration-300 ease-in-out flex items-center justify-center text-2xl font-bold z-50 transform hover:rotate-90"
-            title="Create Quiz"
+            title={makeQuiz ? "Close quiz creation" : "Create a new quiz"}
             onClick={handleMakeQuiz}
           >
-            <i className="bx  bx-plus"></i>
+            {makeQuiz ? (
+              <i className="bx bx-x"></i>
+            ) : (
+              <i className="bx  bx-plus"></i>
+            )}
           </button>
         </div>
         <div className="mt-5">
@@ -66,6 +74,23 @@ export function CreateQuiz() {
                   Create your quiz
                 </p>
                 <div className="flex justify-center gap-5 items-center flex-wrap py-4 animation-soft-pop-in">
+                   <div>
+                    <label
+                      htmlFor="category-input"
+                      className="text-[var(--bg-color)]"
+                    >
+                      Category
+                    </label>
+                    <div className="flex items-center gap-2">
+                      <input
+                        id="category-input"
+                        type="text"
+                        placeholder="Enter a category (e.g., 'Final Exam Reviewers', 'history')"
+                        className="create-quiz-input h-24"
+                        
+                      />
+                    </div>
+                  </div>
                   <div>
                     <label
                       htmlFor="title-input"
@@ -79,6 +104,7 @@ export function CreateQuiz() {
                         type="text"
                         placeholder="Enter a title (e.g., 'math quiz terms', 'history')"
                         className="create-quiz-input h-24"
+
                       />
                     </div>
                   </div>
@@ -116,7 +142,10 @@ export function CreateQuiz() {
                   ))}
                 </div>
                 <div className="flex flex-col justify-center align-center">
-                  <button className="cursor-pointer text-[var(--bg-color)] flex justify-start items-center gap-3 text-xl mt-5 ml-5 active:bg-[var(--orange-color)] hover:bg-[var(--orange-color)] hover:text-white hover:scale-105 transition-all duration-300 ease-in-out rounded-lg py-2 px-4 w-fit">
+                  <button
+                    className="cursor-pointer text-[var(--bg-color)] flex justify-start items-center gap-3 text-xl mt-5 ml-5 active:bg-[var(--orange-color)] hover:bg-[var(--orange-color)] hover:text-white hover:scale-105 transition-all duration-300 ease-in-out rounded-lg py-2 px-4 w-fit"
+                    onClick={() => setSaveQuiz(true)}
+                  >
                     Save quiz <i className="bx bx-save"></i>
                   </button>
                 </div>

@@ -2,6 +2,8 @@ export function TermsAndDefinition({
   questionNumber,
   handleAddQuestion,
   handleDeleteQuestion,
+  handleDefinitionChange,
+  handleTitleChange,
 }) {
   return (
     <>
@@ -13,6 +15,7 @@ export function TermsAndDefinition({
               id="term-input"
               placeholder="Enter term"
               className="create-quiz-terms-definition"
+              onChange={handleTitleChange}
             ></input>
           </div>
           <label htmlFor="term-input" className="text-[var(--bg-color)]">
@@ -25,6 +28,7 @@ export function TermsAndDefinition({
               id="definition-input"
               placeholder="Enter definition"
               className="create-quiz-terms-definition"
+              onChange={handleDefinitionChange}
             ></input>
           </div>
           <label htmlFor="defition-input" className="text-[var(--bg-color)]">
