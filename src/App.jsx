@@ -5,6 +5,7 @@ import { Home } from "./pages/Home";
 import { Category } from "./pages/Category";
 import { CreateQuiz } from "./pages/CreateQuiz";
 import { Quiz } from "./pages/Quiz";
+import { UserQuiz } from "./pages/UserQuiz";
 
 function App() {
   return (
@@ -15,7 +16,7 @@ function App() {
           <Route path="/Category" element={<Category />} />
           <Route path="/CreateQuiz" element={<CreateQuiz />} />
           <Route path="/Quiz" element={<Quiz/>}></Route>
-          <Route path="/UserQuiz" element={<Quiz />} />
+          <Route path="/UserQuiz" element={<UserQuiz />} />
         </Route>
       </Routes>
     </Router>
