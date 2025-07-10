@@ -145,8 +145,8 @@ export function Quiz() {
     setFeedback(feedbackMessage);
     const timerId = setTimeout(() => {
       setFeedback("");
+      setCurrentQuestion(currentQuestion + 1);
     }, 2000);
-    setCurrentQuestion(currentQuestion + 1);
   }
 
   function decodeHtml(html) {
