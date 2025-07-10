@@ -115,7 +115,11 @@ export function CreateQuiz() {
                     />
                   ))}
                 </div>
-                <div className="flex flex-col justify-center align-center"></div>
+                <div className="flex flex-col justify-center align-center">
+                  <button className="cursor-pointer text-[var(--bg-color)] flex justify-start items-center gap-3 text-xl mt-5 ml-5 active:bg-[var(--orange-color)] hover:bg-[var(--orange-color)] hover:text-white hover:scale-105 transition-all duration-300 ease-in-out rounded-lg py-2 px-4 w-fit">
+                    Save quiz <i className="bx bx-save"></i>
+                  </button>
+                </div>
               </div>
             </>
           ) : (
