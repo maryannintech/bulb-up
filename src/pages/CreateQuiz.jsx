@@ -3,6 +3,7 @@ import { TermsAndDefinition } from "../components/TermsAndDefinition";
 import { CategoryCard } from "../components/CategoryCard";
 import { capitalizeFirstLetter } from "../utils/formatText";
 import { categorieColors } from "../data/colors";
+import { useNavigate } from "react-router-dom";
 
 export function CreateQuiz() {
   const [searchCategory, setSearchCategory] = useState("");
@@ -105,6 +106,22 @@ export function CreateQuiz() {
     categoryInput.value = "";
     titleInput.value = "";
     descriptionInput.value = "";
+  }
+
+  const navigateUserQuiz = useNavigate();
+
+  function handleUserCategoryClick(quiz) {
+    navigateUserQuiz("/UserQuiz", {
+      state: {
+        categoryColor: quiz.color,
+        categoryName: quiz.category,
+        quizTitle: quiz.title,
+        quizId: quiz.id,
+        quizQuestions: quiz.questions,
+        quizDescription: quiz.description,
+        quizCreatedAt: quiz.createdAt,
+      },
+    });
   }
 
   return (
@@ -241,8 +258,10 @@ export function CreateQuiz() {
                                 <CategoryCard
                                   key={quiz.id}
                                   categoryName={quiz.title}
-                                  category={quiz}
-                                  functionHandle={() => console.log(quiz)}
+
+                                  functionHandle={() =>
+                                    handleUserCategoryClick(quiz)
+                                  }
                                   color={quiz.color}
                                 />
                               ))}
