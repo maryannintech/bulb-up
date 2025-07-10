@@ -35,7 +35,7 @@ export function UserQuiz() {
                   Question: {currentQuestion + 1}/{quizQuestions.length}
                 </p>
                 <p>Category: {categoryName}</p>
-                <p>Quiz: {quizTitle}</p>
+                <p>Quiz name: {quizTitle}</p>
               </div>
 
               <div>

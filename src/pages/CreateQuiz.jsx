@@ -128,7 +128,7 @@ export function CreateQuiz() {
   return (
     <>
       <div className="mt-4 animation-soft-pop-in">
-        <p className="text-center text-[var(--orange-color)] italic px-4">
+        <p className="text-center px-5 sm:text-xl text-[var(--orange-color)] italic pt-3">
           This is where you’ll find your created quizzes
         </p>
         <div className="search-input flex flex-col items-center mt-3">
@@ -248,8 +248,8 @@ export function CreateQuiz() {
                 </p>
               ) : (
                 <>
-                  <div className="flex items-center gap-4 mt-5 pl-10">
-                    <div className="mt-3 sm:mt-4 overflow-x-auto ">
+                  <div className="flex items-center pl-5 sm:pl-10">
+                    <div className="overflow-x-auto ">
                       {Object.entries(userQuizzes).map(
                         ([categoryName, quizzes]) => (
                           <div key={categoryName} className="mb-6">

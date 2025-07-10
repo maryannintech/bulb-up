@@ -1,22 +1,22 @@
 export const categorieColors = [
-      "e6b907", // Gold/Yellow
-      "d97524", // Orange
-      "51919a", // Teal
-      "8b5cf6", // Purple
-      "ef4444", // Red
-      "10b981", // Green
-      "3b82f6", // Blue
-      "f59e0b", // Amber
-      "ec4899", // Pink
-      "6366f1", // Indigo
-      "84cc16", // Lime
-      "06b6d4", // Cyan
-      "f97316", // Orange-Red
-      "a855f7", // Violet
-      "22c55e", // Emerald
-      "f43f5e", // Rose
-      "0ea5e9", // Sky Blue
-      "eab308", // Yellow
-      "dc2626", // Bright Red
-      "059669", // Teal Green
-    ];
+  "B8860B",
+  "CD7F32",
+  "4682B4",
+  "6A5ACD",
+  "8B0000",
+  "2E8B57",
+  "4169E1",
+  "DAA520",
+  "C71585",
+  "483D8B",
+  "6B8E23",
+  "008B8B",
+  "CC5500",
+  "8A2BE2",
+  "3CB371",
+  "C70039",
+  "20B2AA",
+  "D4AF37",
+  "B22222",
+  "006400",
+];
