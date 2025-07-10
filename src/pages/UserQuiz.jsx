@@ -100,7 +100,7 @@ export function UserQuiz() {
 
               <div>
                 <p>Score: {score}</p>
-                <p>Best Score: 0</p>
+                <p>Best Score: {getBestScore()}</p>
               </div>
             </div>
             <div className="animation-soft-pop-in ">
