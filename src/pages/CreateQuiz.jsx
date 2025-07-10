@@ -111,6 +111,7 @@ export function CreateQuiz() {
   const navigateUserQuiz = useNavigate();
 
   function handleUserCategoryClick(quiz) {
+    console.log("Quiz clicked:", quiz);
     navigateUserQuiz("/UserQuiz", {
       state: {
         categoryColor: quiz.color,
