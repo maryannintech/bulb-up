@@ -70,6 +70,16 @@ export function CreateQuiz() {
       return;
     }
 
+    const existingQuizzes = JSON.parse(
+      localStorage.getItem("userQuizzes") || "{}"
+    );
+
+    const categoryExists = existingQuizzes[category];
+
+    const assignedColor =
+      categoryExists?.[0]?.color ||
+      `#${categorieColors[Math.floor(Math.random() * categorieColors.length)]}`;
+
     const newQuiz = {
       id: Date.now(),
       category: category,
@@ -77,25 +87,16 @@ export function CreateQuiz() {
       description: description,
       questions: questionData,
       createdAt: new Date().toISOString(),
-      color: `#${
-        categorieColors[Math.floor(Math.random() * categorieColors.length)]
-      }`,
+      color: assignedColor,
     };
 
-    setQuizzes((prev) => [...prev, newQuiz]);
+    const updatedQuizzes = {
+      ...existingQuizzes,
+      [category]: [...(existingQuizzes[category] || []), newQuiz],
+    };
 
-    const existingQuizzes = JSON.parse(
-      localStorage.getItem("userQuizzes") || "{}"
-    );
-
-    if (!existingQuizzes[category]) {
-      existingQuizzes[category] = [];
-    }
-
-    existingQuizzes[category].push(newQuiz);
-
-    localStorage.setItem("userQuizzes", JSON.stringify(existingQuizzes));
-    console.log("Quiz saved!", newQuiz);
+    localStorage.setItem("userQuizzes", JSON.stringify(updatedQuizzes));
+    setQuizzes(updatedQuizzes);
 
     setQuestions([1]);
     setNextQuestionId(2);
