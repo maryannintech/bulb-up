@@ -44,7 +44,7 @@ export function UserQuiz() {
               </div>
             </div>
             <div className="animation-soft-pop-in ">
-              <p className="sm:text-3xl text-[var(--bg-color)] text-center mt-4 transition-all duration-500 ease-in-out animate-fade-in">
+              <p className="text-xl sm:text-3xl text-[var(--bg-color)] text-center mt-4 transition-all duration-500 ease-in-out animate-fade-in">
                 {userQuiz.quizQuestions[currentQuestion].definition}
               </p>
             </div>
