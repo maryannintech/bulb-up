@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { QuizChoicesButtons } from "../components/QuizChoicesButtons";
 import { shuffleArray } from "../utils/shuffle-arr";
+import { Link } from "react-router-dom";
 
 export function UserQuiz() {
   const location = useLocation();
@@ -40,14 +41,14 @@ export function UserQuiz() {
   function handleChoiceClick(choice) {
     if (choice === correctTerm) {
       setFeedback("✅ Correct!");
-      setScore(score + 1);
+      setScore((prev) => prev + 1);
     } else {
       setFeedback(`❌ Incorrect! The correct answer is: ${correctTerm}`);
     }
 
     setTimeout(() => {
       setFeedback("");
-      setCurrentQuestion(currentQuestion + 1);
+      setCurrentQuestion((prev) => prev + 1);
     }, 2000);
   }
 
@@ -57,6 +58,26 @@ export function UserQuiz() {
     } else {
     }
   }, [currentQuestion, quizQuestions.length]);
+
+  function getBestScore() {
+    return parseInt(localStorage.getItem(`userQuiz_${quizTitle}`) || "0");
+  }
+
+  function saveBestScore(score) {
+    const currentBest = getBestScore();
+    if (score > currentBest) {
+      localStorage.setItem(`userQuiz_${quizTitle}`, score.toString());
+      return true;
+    }
+    return false;
+  }
+
+  useEffect(() => {
+    if (isQuizCompleted && quizQuestions.length > 0) {
+      const currentScore = score;
+      saveBestScore(currentScore);
+    }
+  }, [isQuizCompleted]);
 
   finalChoices = shuffleArray(finalChoices);
 
@@ -103,9 +124,29 @@ export function UserQuiz() {
         </>
       ) : (
         <>
-          <div className="text-center mt-5">
-            Quiz completed! Your final score is {score} out of{" "}
-            {quizQuestions.length}.
+          <div className="text-[var(--bg-color)] flex flex-col justify-center items-center mt-10 bg-[#004D40] py-10 h-90 select-none animate-slide-in-left">
+            <p className="text-xl sm:text-2xl mb-3">
+              {score > getBestScore()
+                ? `New best score!`
+                : `Current best score: ${getBestScore()}`}
+            </p>
+            <p className="text-2xl sm:text-4xl mb-3">Your brain bulb is up💡</p>
+
+            <div className="text-center rounded-2xl">
+              <p className="text-xl sm:text-3xl">
+                You got: {score} / {quizQuestions.length}
+              </p>
+              <p className="sm:text-xl">
+                {(score / quizQuestions.length) * 100 >= 80
+                  ? "You're clearly glowing! Nice job"
+                  : "Still got that spark! Wanna light it up again?"}
+              </p>
+            </div>
+            <Link to="/CreateQuiz">
+              <button className="sm:text-xl border-2 bg-[#B34C00] px-4 py-1 rounded-2xl mt-3 cursor-pointer hover:bg-[var(--yellow-color)] hover:text-gray-800 transition-all duration-300 ease-in-out hover:shadow-lg transform hover:-translate-y-1 hover:brightness-110 hover:border-[var(--bg-color)]">
+                Return to your quizzes?
+              </button>
+            </Link>
           </div>
         </>
       )}
