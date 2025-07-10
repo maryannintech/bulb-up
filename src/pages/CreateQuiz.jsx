@@ -230,13 +230,13 @@ export function CreateQuiz() {
                 </p>
               ) : (
                 <>
-                  <div className="flex items-center flex-wrap gap-4 mt-5 pl-10">
-                    <div className="mt-3 sm:mt-4">
+                  <div className="flex items-center gap-4 mt-5 pl-5">
+                    <div className="mt-3 sm:mt-4 overflow-x-auto">
                       {Object.entries(userQuizzes).map(
                         ([categoryName, quizzes]) => (
                           <div key={categoryName} className="mb-6">
                             <h2 className="text-xl mb-2">{categoryName}</h2>
-                            <div className="flex flex-wrap gap-3">
+                            <div className="flex gap-3 overflow-x-auto">
                               {quizzes.map((quiz) => (
                                 <CategoryCard
                                   key={quiz.id}
