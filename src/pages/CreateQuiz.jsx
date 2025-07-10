@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { TermsAndDefinition } from "../components/TermsAndDefinition";
+import { CategoryCard } from "../components/CategoryCard";
+import { capitalizeFirstLetter } from "../utils/formatText";
 
 export function CreateQuiz() {
   const [searchCategory, setSearchCategory] = useState("");
@@ -7,8 +9,7 @@ export function CreateQuiz() {
   const [makeQuiz, setMakeQuiz] = useState(false);
   const [questions, setQuestions] = useState([1]);
   const [nextQuestionId, setNextQuestionId] = useState(2);
-  const [saveQuiz, setSaveQuiz] = useState(false);
-  
+  let userQuizzes = JSON.parse(localStorage.getItem("userQuizzes") || "[]");
 
   function handleMakeQuiz() {
     if (makeQuiz) {
@@ -34,7 +35,98 @@ export function CreateQuiz() {
     }
   }
 
+  function handleSaveQuiz() {
+    const categorieColors = [
+      "e6b907", // Gold/Yellow
+      "d97524", // Orange
+      "51919a", // Teal
+      "8b5cf6", // Purple
+      "ef4444", // Red
+      "10b981", // Green
+      "3b82f6", // Blue
+      "f59e0b", // Amber
+      "ec4899", // Pink
+      "6366f1", // Indigo
+      "84cc16", // Lime
+      "06b6d4", // Cyan
+      "f97316", // Orange-Red
+      "a855f7", // Violet
+      "22c55e", // Emerald
+      "f43f5e", // Rose
+      "0ea5e9", // Sky Blue
+      "eab308", // Yellow
+      "dc2626", // Bright Red
+      "059669", // Teal Green
+    ];
 
+    const categoryInput = document.getElementById("category-input");
+    const titleInput = document.getElementById("title-input");
+    const descriptionInput = document.getElementById("description-input");
+
+    const category = capitalizeFirstLetter(categoryInput.value.trim());
+    const title = capitalizeFirstLetter(titleInput.value.trim());
+    const description = capitalizeFirstLetter(descriptionInput.value.trim());
+
+    if (!category || !title || !description) {
+      alert("Please fill in all fields before saving the quiz.");
+      return;
+    }
+
+    const questionData = questions.map((questionNum) => {
+      const termInput = document.getElementById(`term-${questionNum}`);
+      const definitionInput = document.getElementById(
+        `definition-${questionNum}`
+      );
+
+      return {
+        term: capitalizeFirstLetter(termInput?.value.trim()) || "",
+        definition: capitalizeFirstLetter(definitionInput?.value.trim()) || "",
+      };
+    });
+
+    const incompleteQuestions = questionData.some(
+      (q) => !q.term || !q.definition
+    );
+    if (incompleteQuestions) {
+      alert("Please fill in all terms and definitions before saving.");
+      return;
+    }
+
+    const newQuiz = {
+      id: Date.now(),
+      category: category,
+      title: title,
+      description: description,
+      questions: questionData,
+      createdAt: new Date().toISOString(),
+      color: `#${
+        categorieColors[Math.floor(Math.random() * categorieColors.length)]
+      }`,
+    };
+
+    setQuizzes((prev) => [...prev, newQuiz]);
+
+    const existingQuizzes = JSON.parse(
+      localStorage.getItem("userQuizzes") || "{}"
+    );
+
+    if (!existingQuizzes[category]) {
+      existingQuizzes[category] = [];
+    }
+
+    existingQuizzes[category].push(newQuiz);
+
+    localStorage.setItem("userQuizzes", JSON.stringify(existingQuizzes));
+    console.log("Quiz saved!", newQuiz);
+
+    setQuestions([1]);
+    setNextQuestionId(2);
+    setMakeQuiz(false);
+
+    categoryInput.value = "";
+    titleInput.value = "";
+    descriptionInput.value = "";
+  }
 
   return (
     <>
@@ -74,7 +166,7 @@ export function CreateQuiz() {
                   Create your quiz
                 </p>
                 <div className="flex justify-center gap-5 items-center flex-wrap py-4 animation-soft-pop-in">
-                   <div>
+                  <div>
                     <label
                       htmlFor="category-input"
                       className="text-[var(--bg-color)]"
@@ -87,7 +179,6 @@ export function CreateQuiz() {
                         type="text"
                         placeholder="Enter a category (e.g., 'Final Exam Reviewers', 'history')"
                         className="create-quiz-input h-24"
-                        
                       />
                     </div>
                   </div>
@@ -104,7 +195,6 @@ export function CreateQuiz() {
                         type="text"
                         placeholder="Enter a title (e.g., 'math quiz terms', 'history')"
                         className="create-quiz-input h-24"
-
                       />
                     </div>
                   </div>
@@ -133,6 +223,7 @@ export function CreateQuiz() {
                   {questions.map((questionNum, index) => (
                     <TermsAndDefinition
                       key={questionNum}
+                      id={`question-${questionNum}`}
                       questionNumber={index + 1}
                       handleAddQuestion={handleAddQuestion}
                       handleDeleteQuestion={() =>
@@ -144,7 +235,7 @@ export function CreateQuiz() {
                 <div className="flex flex-col justify-center align-center">
                   <button
                     className="cursor-pointer text-[var(--bg-color)] flex justify-start items-center gap-3 text-xl mt-5 ml-5 active:bg-[var(--orange-color)] hover:bg-[var(--orange-color)] hover:text-white hover:scale-105 transition-all duration-300 ease-in-out rounded-lg py-2 px-4 w-fit"
-                    onClick={() => setSaveQuiz(true)}
+                    onClick={handleSaveQuiz}
                   >
                     Save quiz <i className="bx bx-save"></i>
                   </button>
@@ -153,13 +244,40 @@ export function CreateQuiz() {
             </>
           ) : (
             <div>
-              {quizzes.length == 0 ? (
+              {userQuizzes.length == 0 ? (
                 <p className=" sm:pt-5 px-4 text-center sm:text-xl text-gray-600">
                   No quizzes created yet. Click the + button to create your
                   first quiz.
                 </p>
               ) : (
-                <></>
+                <>
+                  <div className="flex items-center flex-wrap gap-4 mt-5 pl-10">
+                    <div className="mt-3 sm:mt-4">
+                      {Object.entries(userQuizzes).map(
+                        ([categoryName, quizzes]) => (
+                          <div key={categoryName} className="mb-6">
+                            <h2 className="text-xl mb-2">
+                              {categoryName}
+                            </h2>
+
+                            {/* All quizzes under this category */}
+                            <div className="flex flex-wrap gap-3">
+                              {quizzes.map((quiz) => (
+                                <CategoryCard
+                                  key={quiz.id}
+                                  categoryName={quiz.title}
+                                  category={quiz}
+                                  functionHandle={() => console.log(quiz)}
+                                  color={quiz.color}
+                                />
+                              ))}
+                            </div>
+                          </div>
+                        )
+                      )}
+                    </div>
+                  </div>
+                </>
               )}
             </div>
           )}

@@ -12,7 +12,7 @@ export function TermsAndDefinition({
         <div className="flex justify-center flex-col items-center gap-2 mt-3 flex-wrap  animation-soft-pop-in">
           <div>
             <input
-              id="term-input"
+               id={`term-${questionNumber}`} 
               placeholder="Enter term"
               className="create-quiz-terms-definition"
               onChange={handleTitleChange}
@@ -25,7 +25,7 @@ export function TermsAndDefinition({
         <div className="flex justify-center flex-col items-center gap-2 flex-wrap  animation-soft-pop-in">
           <div>
             <input
-              id="definition-input"
+              id={`definition-${questionNumber}`}
               placeholder="Enter definition"
               className="create-quiz-terms-definition"
               onChange={handleDefinitionChange}
