@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { QuizChoicesButtons } from "../components/QuizChoicesButtons";
 
 export function UserQuiz() {
   const location = useLocation();
@@ -47,6 +48,9 @@ export function UserQuiz() {
               <p className="text-xl sm:text-3xl text-[var(--bg-color)] text-center mt-4 transition-all duration-500 ease-in-out animate-fade-in">
                 {userQuiz.quizQuestions[currentQuestion].definition}
               </p>
+            </div>
+            <div className="flex flex-col justify-center items-center mt-5 sm:mt-10 sm:grid sm:grid-cols-2 gap-4 sm:gap-5 sm:max-w-130 mx-auto">
+              
             </div>
           </div>
         </>
