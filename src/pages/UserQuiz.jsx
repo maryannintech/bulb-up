@@ -48,8 +48,8 @@ export function UserQuiz() {
 
     setTimeout(() => {
       setFeedback("");
-      setCurrentQuestion((prev) => prev + 1);
     }, 2000);
+    setCurrentQuestion((prev) => prev + 1);
   }
 
   useEffect(() => {

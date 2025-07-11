@@ -143,9 +143,9 @@ export function Quiz() {
       )}`;
     }
     setFeedback(feedbackMessage);
+    setCurrentQuestion(currentQuestion + 1);
     const timerId = setTimeout(() => {
       setFeedback("");
-      setCurrentQuestion(currentQuestion + 1);
     }, 2000);
   }
 
