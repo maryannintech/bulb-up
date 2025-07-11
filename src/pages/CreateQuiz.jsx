@@ -44,13 +44,11 @@ export function CreateQuiz() {
   function handleSaveQuiz() {
     const categoryInput = document.getElementById("category-input");
     const titleInput = document.getElementById("title-input");
-    const descriptionInput = document.getElementById("description-input");
 
     const category = capitalizeFirstLetter(categoryInput.value.trim());
     const title = capitalizeFirstLetter(titleInput.value.trim());
-    const description = capitalizeFirstLetter(descriptionInput.value.trim());
 
-    if (!category || !title || !description) {
+    if (!category || !title) {
       alert("Please fill in all fields before saving the quiz.");
       return;
     }
@@ -89,7 +87,6 @@ export function CreateQuiz() {
       id: Date.now(),
       category: category,
       title: title,
-      description: description,
       questions: questionData,
       createdAt: new Date().toISOString(),
       color: assignedColor,
@@ -100,6 +97,8 @@ export function CreateQuiz() {
       [category]: [...(existingQuizzes[category] || []), newQuiz],
     };
 
+    setUserQuizzes(updatedQuizzes);
+
     localStorage.setItem("userQuizzes", JSON.stringify(updatedQuizzes));
 
     setQuestions([1]);
@@ -108,7 +107,11 @@ export function CreateQuiz() {
 
     categoryInput.value = "";
     titleInput.value = "";
-    descriptionInput.value = "";
+
+    setEditFeedback(`Quiz "${newQuiz.title}" has been saved successfully.`);
+    setTimeout(() => {
+      setEditFeedback("");
+    }, 2000);
   }
 
   const navigateUserQuiz = useNavigate();
@@ -122,7 +125,6 @@ export function CreateQuiz() {
         quizTitle: quiz.title,
         quizId: quiz.id,
         quizQuestions: quiz.questions,
-        quizDescription: quiz.description,
         quizCreatedAt: quiz.createdAt,
       },
     });
@@ -192,7 +194,7 @@ export function CreateQuiz() {
             </button>
           </div>
         )}
-        <p className="text-center">{editFeedback}</p>
+        <p className="text-center mt-4 mb-4">{editFeedback}</p>
         <div>
           <button
             className="cursor-pointer fixed bottom-6 right-6 bg-[var(--orange-color)] text-white w-14 h-14 rounded-full shadow-lg hover:shadow-xl hover:scale-110 hover:bg-orange-600 transition-all duration-300 ease-in-out flex items-center justify-center text-2xl font-bold z-50 transform hover:rotate-90"
@@ -244,22 +246,6 @@ export function CreateQuiz() {
                         placeholder="Enter a title (e.g., 'math quiz terms', 'history')"
                         className="create-quiz-input h-24"
                       />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label
-                      htmlFor="description-input"
-                      className="text-[var(--bg-color)]"
-                    >
-                      Description
-                    </label>
-                    <div className="flex items-center gap-2">
-                      <textarea
-                        id="description-input"
-                        placeholder="Enter a description (e.g., 'A quiz about math terms', 'A quiz about history')"
-                        className="create-quiz-input h-24"
-                      ></textarea>
                     </div>
                   </div>
                 </div>

@@ -13,7 +13,6 @@ export function UserQuiz() {
     quizTitle,
     quizId,
     quizQuestions = [],
-    quizDescription,
     quizCreatedAt,
   } = userQuiz;
 
