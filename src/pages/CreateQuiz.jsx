@@ -11,6 +11,8 @@ export function CreateQuiz() {
   const [makeQuiz, setMakeQuiz] = useState(false);
   const [questions, setQuestions] = useState([1]);
   const [nextQuestionId, setNextQuestionId] = useState(2);
+  const [editQuiz, setEditQuiz] = useState(false);
+
   let userQuizzes = JSON.parse(localStorage.getItem("userQuizzes") || "[]");
 
   function handleMakeQuiz() {
@@ -125,6 +127,14 @@ export function CreateQuiz() {
     });
   }
 
+  function handleEditQuiz() {
+    if (!editQuiz) {
+      setEditQuiz(true);
+    } else {
+      setEditQuiz(false);
+    }
+  }
+
   return (
     <>
       <div className="mt-4 animation-soft-pop-in">
@@ -143,7 +153,10 @@ export function CreateQuiz() {
           </div>
         </div>
         <div className="flex justify-end items-center gap-2 mr-5 bg-[var(--orange-color)] text-white rounded-lg mt-3  w-fit mx-auto px-4 py-2 shadow-lg hover:shadow-xl hover:scale-110 hover:bg-orange-600 transition-all duration-300 ease-in-out ">
-          <i className="bx  bx-edit-alt"></i> <button className="cursor-pointer"> Edit quiz</button>
+          <i className="bx  bx-edit-alt"></i>{" "}
+          <button className="cursor-pointer" onClick={handleEditQuiz}>
+            Edit quiz
+          </button>
         </div>
         <div>
           <button
@@ -269,6 +282,20 @@ export function CreateQuiz() {
                                 />
                               ))}
                             </div>
+                            {editQuiz ? (
+                              <div className="animate-fade-in">
+                                <div className="flex gap-2 justify-start items-center mt-4 text-[var(--bg-color)] transform transition-all duration-500 ease-in-out">
+                                  <button className="cursor-pointer bg-[#3CB371] rounded-full flex justify-center items-center px-4 py-1 hover:bg-[#2E8B57] hover:scale-105 hover:shadow-lg transition-all duration-300 ease-in-out transform hover:-translate-y-1">
+                                    <i className="bx bx-edit-alt mr-1"></i> Edit
+                                  </button>
+                                  <button className="cursor-pointer bg-[#4682B4] rounded-full flex justify-center items-center px-4 py-1 hover:bg-[#36648B] hover:scale-105 hover:shadow-lg transition-all duration-300 ease-in-out transform hover:-translate-y-1">
+                                    <i className="bx bx-trash mr-1"></i> Delete
+                                  </button>
+                                </div>
+                              </div>
+                            ) : (
+                              <></>
+                            )}
                           </div>
                         )
                       )}
