@@ -153,7 +153,7 @@ export function CreateQuiz() {
           </div>
         </div>
         <div className="flex justify-end items-center gap-2 mr-5 bg-[var(--orange-color)] text-white rounded-lg mt-3  w-fit mx-auto px-4 py-2 shadow-lg hover:shadow-xl hover:scale-110 hover:bg-orange-600 transition-all duration-300 ease-in-out ">
-          <i className="bx  bx-edit-alt"></i>{" "}
+          {editQuiz ? <i class='bx  bx-check'  ></i>  :  <i className="bx  bx-edit-alt"></i>}
           <button className="cursor-pointer" onClick={handleEditQuiz}>
             {editQuiz ? "Done Editing" : "Edit Quizzes"}
           </button>
