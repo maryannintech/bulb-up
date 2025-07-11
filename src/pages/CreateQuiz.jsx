@@ -24,6 +24,7 @@ export function CreateQuiz() {
       setNextQuestionId(2);
     } else {
       setMakeQuiz(true);
+      setEditQuiz(false);
     }
   }
 
