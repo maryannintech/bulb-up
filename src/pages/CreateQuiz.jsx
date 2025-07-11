@@ -177,19 +177,21 @@ export function CreateQuiz() {
             />
           </div>
         </div>
-        <div
-          className="cursor-pointer flex justify-end items-center gap-2 mr-5 bg-[var(--orange-color)] text-white rounded-lg mt-3  w-fit mx-auto px-4 py-2 shadow-lg hover:shadow-xl hover:scale-110 hover:bg-orange-600 transition-all duration-300 ease-in-out "
-          onClick={handleEditQuiz}
-        >
-          {editQuiz ? (
-            <i className="bx  bx-check"></i>
-          ) : (
-            <i className="bx  bx-edit-alt"></i>
-          )}
-          <button className="cursor-pointer">
-            {editQuiz ? "Done Editing" : "Edit Quizzes"}
-          </button>
-        </div>
+        {Object.keys(userQuizzes).length > 0 && (
+          <div
+            className="cursor-pointer flex justify-end items-center gap-2 mr-5 bg-[var(--orange-color)] text-white rounded-lg mt-3  w-fit mx-auto px-4 py-2 shadow-lg hover:shadow-xl hover:scale-110 hover:bg-orange-600 transition-all duration-300 ease-in-out "
+            onClick={handleEditQuiz}
+          >
+            {editQuiz ? (
+              <i className="bx  bx-check"></i>
+            ) : (
+              <i className="bx  bx-edit-alt"></i>
+            )}
+            <button className="cursor-pointer">
+              {editQuiz ? "Done Editing" : "Edit Quizzes"}
+            </button>
+          </div>
+        )}
         <p className="text-center">{editFeedback}</p>
         <div>
           <button
@@ -290,7 +292,7 @@ export function CreateQuiz() {
             </>
           ) : (
             <div>
-              {userQuizzes.length == 0 ? (
+              {Object.keys(userQuizzes).length === 0 ? (
                 <p className=" sm:pt-5 px-4 text-center sm:text-xl text-gray-600">
                   No quizzes created yet. Click the + button to create your
                   first quiz.
