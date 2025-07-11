@@ -150,6 +150,7 @@ export function CreateQuiz() {
       );
       if (updatedQuizzes[quiz.category].length === 0) {
         delete updatedQuizzes[quiz.category];
+        localStorage.removeItem(`userQuiz_${quiz.title}`);
       }
 
       localStorage.setItem("userQuizzes", JSON.stringify(updatedQuizzes));
@@ -181,7 +182,7 @@ export function CreateQuiz() {
         </div>
         {Object.keys(userQuizzes).length > 0 && (
           <div
-            className="cursor-pointer flex justify-end items-center gap-2 mr-5 bg-[var(--orange-color)] text-white rounded-lg mt-3  w-fit mx-auto px-4 py-2 shadow-lg hover:shadow-xl hover:scale-110 hover:bg-orange-600 transition-all duration-300 ease-in-out "
+            className="sm:text-xl cursor-pointer flex justify-end items-center gap-2 sm:mr-5 bg-[var(--orange-color)] text-white rounded-lg mt-5  w-fit mx-auto px-4 py-2 shadow-lg hover:shadow-xl hover:scale-110 hover:bg-orange-600 transition-all duration-300 ease-in-out "
             onClick={handleEditQuiz}
           >
             {editQuiz ? (
@@ -285,13 +286,13 @@ export function CreateQuiz() {
                 </p>
               ) : (
                 <>
-                  <div className="flex items-center pl-5 sm:pl-10">
+                  <div className="flex items-center pl-5 sm:pl-10 mb-5">
                     <div className="overflow-x-auto ">
                       {Object.entries(userQuizzes).map(
                         ([categoryName, quizzes]) => (
-                          <div key={categoryName} className="mb-6">
-                            <h2 className="text-xl mb-2">{categoryName}</h2>
-                            <div className="flex gap-5 item-center overflow-x-auto">
+                          <div key={categoryName} className="mb-3">
+                            <h2 className="sm:text-xl mb-2">{categoryName}</h2>
+                            <div className="sm:text-xl flex gap-5 item-center overflow-x-auto">
                               {quizzes.map((quiz) => (
                                 <div
                                   className="sm:overflow-hidden"
@@ -306,7 +307,7 @@ export function CreateQuiz() {
                                   />
                                   {editQuiz ? (
                                     <div className="animate-fade-in">
-                                      <div className="flex gap-2 justify-start items-center mt-4 text-[var(--bg-color)] transform transition-all duration-500 ease-in-out">
+                                      <div className="flex gap-2 justify-start items-center mt-4 text-[var(--bg-color)] transform transition-all duration-500 ease-in-out ">
                                         <button className="cursor-pointer bg-[#3CB371] rounded-full flex justify-center items-center px-4 py-1 hover:bg-[#2E8B57] hover:scale-105 hover:shadow-lg transition-all duration-300 ease-in-out transform hover:-translate-y-1">
                                           <i className="bx bx-edit-alt mr-1"></i>{" "}
                                           Edit
