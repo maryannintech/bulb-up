@@ -12,8 +12,10 @@ export function CreateQuiz() {
   const [questions, setQuestions] = useState([1]);
   const [nextQuestionId, setNextQuestionId] = useState(2);
   const [editQuiz, setEditQuiz] = useState(false);
-
-  let userQuizzes = JSON.parse(localStorage.getItem("userQuizzes") || "[]");
+  const [userQuizzes, setUserQuizzes] = useState(
+    JSON.parse(localStorage.getItem("userQuizzes") || "{}")
+  );
+  const [editFeedback, setEditFeedback] = useState("");
 
   function handleMakeQuiz() {
     if (makeQuiz) {
@@ -99,7 +101,6 @@ export function CreateQuiz() {
     };
 
     localStorage.setItem("userQuizzes", JSON.stringify(updatedQuizzes));
-    setQuizzes(updatedQuizzes);
 
     setQuestions([1]);
     setNextQuestionId(2);
@@ -141,12 +142,21 @@ export function CreateQuiz() {
     );
     if (confirmation) {
       console.log("Quiz deleted", quiz);
-      const existingQuizzes = JSON.parse(
-        localStorage.getItem("userQuizzes") || "{}"
-      );
-      existingQuizzes[quiz.category] = existingQuizzes[quiz.category].filter(
+      const updatedQuizzes = { ...userQuizzes };
+      updatedQuizzes[quiz.category] = updatedQuizzes[quiz.category].filter(
         (q) => q.id !== quiz.id
       );
+      if (updatedQuizzes[quiz.category].length === 0) {
+        delete updatedQuizzes[quiz.category];
+      }
+
+      localStorage.setItem("userQuizzes", JSON.stringify(updatedQuizzes));
+      setUserQuizzes(updatedQuizzes);
+
+      setEditFeedback(`Quiz "${quiz.title}" has been deleted successfully.`);
+      setTimeout(() => {
+        setEditFeedback("");
+      }, 2000);
     }
   }
 
@@ -180,6 +190,7 @@ export function CreateQuiz() {
             {editQuiz ? "Done Editing" : "Edit Quizzes"}
           </button>
         </div>
+        <p className="text-center">{editFeedback}</p>
         <div>
           <button
             className="cursor-pointer fixed bottom-6 right-6 bg-[var(--orange-color)] text-white w-14 h-14 rounded-full shadow-lg hover:shadow-xl hover:scale-110 hover:bg-orange-600 transition-all duration-300 ease-in-out flex items-center justify-center text-2xl font-bold z-50 transform hover:rotate-90"
