@@ -135,6 +135,21 @@ export function CreateQuiz() {
     }
   }
 
+  function handleDeleteButton(quiz) {
+    const confirmation = window.confirm(
+      "Are you sure you want to delete this quiz? This action cannot be undone."
+    );
+    if (confirmation) {
+      console.log("Quiz deleted", quiz);
+      const existingQuizzes = JSON.parse(
+        localStorage.getItem("userQuizzes") || "{}"
+      );
+      existingQuizzes[quiz.category] = existingQuizzes[quiz.category].filter(
+        (q) => q.id !== quiz.id
+      );
+    }
+  }
+
   return (
     <>
       <div className="mt-4 animation-soft-pop-in">
@@ -157,7 +172,7 @@ export function CreateQuiz() {
           onClick={handleEditQuiz}
         >
           {editQuiz ? (
-            <i class="bx  bx-check"></i>
+            <i className="bx  bx-check"></i>
           ) : (
             <i className="bx  bx-edit-alt"></i>
           )}
@@ -279,9 +294,11 @@ export function CreateQuiz() {
                             <h2 className="text-xl mb-2">{categoryName}</h2>
                             <div className="flex gap-5 item-center overflow-x-auto">
                               {quizzes.map((quiz) => (
-                                <div className="sm:overflow-hidden">
+                                <div
+                                  className="sm:overflow-hidden"
+                                  key={quiz.id}
+                                >
                                   <CategoryCard
-                                    key={quiz.id}
                                     categoryName={quiz.title}
                                     functionHandle={() =>
                                       handleUserCategoryClick(quiz)
@@ -295,7 +312,13 @@ export function CreateQuiz() {
                                           <i className="bx bx-edit-alt mr-1"></i>{" "}
                                           Edit
                                         </button>
-                                        <button className="cursor-pointer bg-[#6B8E23] rounded-full flex justify-center items-center px-4 py-1 hover:bg-[#677649] hover:scale-105 hover:shadow-lg transition-all duration-300 ease-in-out transform hover:-translate-y-1">
+                                        <button
+                                          className="cursor-pointer bg-[#C70039] rounded-full flex justify-center items-center px-4 py-1 hover:bg-[#c7003892] hover:scale-105 hover:shadow-lg transition-all duration-300 ease-in-out transform hover:-translate-y-1"
+                                          onClick={() =>
+                                            handleDeleteButton(quiz)
+                                          }
+                                          key={quiz.id}
+                                        >
                                           <i className="bx bx-trash mr-1"></i>{" "}
                                           Delete
                                         </button>
