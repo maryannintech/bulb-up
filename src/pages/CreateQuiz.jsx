@@ -17,6 +17,7 @@ export function CreateQuiz() {
   );
   const [editFeedback, setEditFeedback] = useState("");
   const [isEditingQuiz, setIsEditingQuiz] = useState(false);
+  const [searchResults, setSearchResults] = useState([]);
 
   function handleMakeQuiz() {
     if (makeQuiz) {
@@ -313,6 +314,81 @@ export function CreateQuiz() {
     }, 2000);
   }
 
+  function handleSearchButton(e) {
+    if (e.key === "Enter") {
+      const searchTerm = e.target.value;
+      setSearchCategory(searchTerm);
+      searchThroughUserCategories(searchTerm);
+    }
+  }
+
+  function searchThroughUserCategories(searchTerm) {
+    if (!searchTerm.trim()) {
+      setSearchResults({});
+      return;
+    }
+
+    const results = {};
+    const searchLower = searchTerm.toLowerCase();
+
+    Object.entries(userQuizzes).forEach(([category, quizzes]) => {
+      const filteredQuizzes = quizzes.filter(
+        (quiz) =>
+          quiz.title.toLowerCase().includes(searchLower) ||
+          quiz.category.toLowerCase().includes(searchLower)
+      );
+
+      if (filteredQuizzes.length > 0) {
+        results[category] = filteredQuizzes; // Store as object, not array
+      }
+    });
+
+    setSearchResults(results);
+  }
+
+  function clearSearch() {
+    setSearchCategory("");
+    setSearchResults([]);
+    document.getElementById("search-category").value = "";
+  }
+
+  function renderQuizCards(quizzesData) {
+    return Object.entries(quizzesData).map(([categoryName, quizzes]) => (
+      <div key={categoryName} className="mb-3">
+        <h2 className="sm:text-xl mb-2">{categoryName}</h2>
+        <div className="sm:text-xl flex gap-5 item-center overflow-x-auto">
+          {quizzes.map((quiz) => (
+            <div className="sm:overflow-hidden" key={quiz.id}>
+              <CategoryCard
+                categoryName={quiz.title}
+                functionHandle={() => handleUserCategoryClick(quiz)}
+                color={quiz.color}
+              />
+              {editQuiz ? (
+                <div className="animate-fade-in">
+                  <div className="flex gap-2 justify-start items-center mt-4 text-[var(--bg-color)] transform transition-all duration-500 ease-in-out">
+                    <button
+                      className="cursor-pointer bg-[#3CB371] rounded-full flex justify-center items-center px-4 py-1 hover:bg-[#2E8B57] hover:scale-105 hover:shadow-lg transition-all duration-300 ease-in-out transform hover:-translate-y-1"
+                      onClick={() => handleEditButton(quiz)}
+                    >
+                      <i className="bx bx-edit-alt mr-1"></i> Edit
+                    </button>
+                    <button
+                      className="cursor-pointer bg-[#C70039] rounded-full flex justify-center items-center px-4 py-1 hover:bg-[#c7003892] hover:scale-105 hover:shadow-lg transition-all duration-300 ease-in-out transform hover:-translate-y-1"
+                      onClick={() => handleDeleteButton(quiz)}
+                    >
+                      <i className="bx bx-trash mr-1"></i> Delete
+                    </button>
+                  </div>
+                </div>
+              ) : null}
+            </div>
+          ))}
+        </div>
+      </div>
+    ));
+  }
+
   return (
     <>
       <div className="mt-4 animation-soft-pop-in">
@@ -327,7 +403,19 @@ export function CreateQuiz() {
               type="text"
               placeholder="Search for a category (e.g., 'math quiz terms', 'history')"
               className="input-category"
+              onKeyDown={(e) => handleSearchButton(e)}
             />
+            {searchCategory && (
+              <div>
+                <button
+                  onClick={clearSearch}
+                  className="cursor-pointer text-[var(--bg-color)] px-3 py-1 rounded-full bg-[var(--blue-color)] hover:bg-[var(--orange-color)] hover:scale-105 hover:shadow-md transition-all duration-200 ease-in-out transform hover:brightness-110"
+                  title="Clear search"
+                >
+                  ✕
+                </button>
+              </div>
+            )}
           </div>
         </div>
         {Object.keys(userQuizzes).length > 0 && (
@@ -345,7 +433,7 @@ export function CreateQuiz() {
             </button>
           </div>
         )}
-        <p className="text-center mt-4 mb-4">{editFeedback}</p>
+        <p className="text-center mt-4 mb-4 px-5">{editFeedback}</p>
         <div>
           <button
             className="cursor-pointer fixed bottom-6 right-6 bg-[var(--orange-color)] text-white w-14 h-14 rounded-full shadow-lg hover:shadow-xl hover:scale-110 hover:bg-orange-600 transition-all duration-300 ease-in-out flex items-center justify-center text-2xl font-bold z-50 transform hover:rotate-90"
@@ -438,67 +526,40 @@ export function CreateQuiz() {
             </>
           ) : (
             <div>
-              {Object.keys(userQuizzes).length === 0 ? (
-                <p className=" sm:pt-5 px-4 text-center sm:text-xl text-gray-600">
-                  No quizzes created yet. Click the + button to create your
-                  first quiz.
-                </p>
-              ) : (
-                <>
-                  <div className="flex items-center pl-5 sm:pl-10 mb-5">
-                    <div className="overflow-x-auto ">
-                      {Object.entries(userQuizzes).map(
-                        ([categoryName, quizzes]) => (
-                          <div key={categoryName} className="mb-3">
-                            <h2 className="sm:text-xl mb-2">{categoryName}</h2>
-                            <div className="sm:text-xl flex gap-5 item-center overflow-x-auto">
-                              {quizzes.map((quiz) => (
-                                <div
-                                  className="sm:overflow-hidden"
-                                  key={quiz.id}
-                                >
-                                  <CategoryCard
-                                    categoryName={quiz.title}
-                                    functionHandle={() =>
-                                      handleUserCategoryClick(quiz)
-                                    }
-                                    color={quiz.color}
-                                  />
-                                  {editQuiz ? (
-                                    <div className="animate-fade-in">
-                                      <div className="flex gap-2 justify-start items-center mt-4 text-[var(--bg-color)] transform transition-all duration-500 ease-in-out ">
-                                        <button
-                                          className="cursor-pointer bg-[#3CB371] rounded-full flex justify-center items-center px-4 py-1 hover:bg-[#2E8B57] hover:scale-105 hover:shadow-lg transition-all duration-300 ease-in-out transform hover:-translate-y-1"
-                                          onClick={() => handleEditButton(quiz)}
-                                        >
-                                          <i className="bx bx-edit-alt mr-1"></i>{" "}
-                                          Edit
-                                        </button>
-                                        <button
-                                          className="cursor-pointer bg-[#C70039] rounded-full flex justify-center items-center px-4 py-1 hover:bg-[#c7003892] hover:scale-105 hover:shadow-lg transition-all duration-300 ease-in-out transform hover:-translate-y-1"
-                                          onClick={() =>
-                                            handleDeleteButton(quiz)
-                                          }
-                                          key={quiz.id}
-                                        >
-                                          <i className="bx bx-trash mr-1"></i>{" "}
-                                          Delete
-                                        </button>
-                                      </div>
-                                    </div>
-                                  ) : (
-                                    <></>
-                                  )}
-                                </div>
-                              ))}
-                            </div>
-                          </div>
-                        )
-                      )}
+              <>
+                {Object.keys(userQuizzes).length === 0 ? (
+                  <p className=" sm:pt-5 px-4 text-center sm:text-xl text-gray-600">
+                    No quizzes created yet. Click the + button to create your
+                    first quiz.
+                  </p>
+                ) : (
+                  <>
+                    <div className="flex items-center pl-5 sm:pl-10 mb-5">
+                      <div className="overflow-x-auto">
+                        {searchCategory && searchCategory ? (
+                          Object.keys(searchResults).length > 0 ? (
+                            renderQuizCards(searchResults)
+                          ) : (
+                            <>
+                              <p className="text-red-500 mt-2">
+                                No categories found for "{searchCategory}"
+                              </p>
+                              <button
+                                onClick={clearSearch}
+                                className="cursor-pointer text-sm bg-[var(--blue-color)] hover:bg-[var(--orange-color)] text-white px-3 py-1 rounded-full mt-2 transition-colors"
+                              >
+                                Show all categories
+                              </button>
+                            </>
+                          )
+                        ) : (
+                          renderQuizCards(userQuizzes)
+                        )}
+                      </div>
                     </div>
-                  </div>
-                </>
-              )}
+                  </>
+                )}
+              </>
             </div>
           )}
         </div>
