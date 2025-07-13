@@ -536,13 +536,13 @@ export function CreateQuiz() {
                   <>
                     <div className="flex items-center pl-5 sm:pl-10 mb-5">
                       <div className="overflow-x-auto">
-                        {searchCategory && searchCategory ? (
+                        {searchCategory && searchResults.length > 0 ? (
                           Object.keys(searchResults).length > 0 ? (
                             renderQuizCards(searchResults)
                           ) : (
                             <>
                               <p className="text-red-500 mt-2">
-                                No categories found for "{searchCategory}"
+                                No quiz found for "{searchCategory}"
                               </p>
                               <button
                                 onClick={clearSearch}

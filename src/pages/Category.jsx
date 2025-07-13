@@ -194,7 +194,7 @@ export function Category() {
               ) : (
                 <div>
                   <p className="text-red-500 mt-2">
-                    No categories found for "{searchCategory}"
+                    No quiz found for "{searchCategory}"
                   </p>
                   <button
                     onClick={clearSearch}
