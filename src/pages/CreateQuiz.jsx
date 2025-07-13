@@ -172,7 +172,6 @@ export function CreateQuiz() {
     setEditQuiz(false);
     setIsEditingQuiz(true);
 
-    // Store which quiz we're editing
     sessionStorage.setItem("editingQuizId", quiz.id.toString());
 
     setTimeout(() => {
@@ -181,7 +180,7 @@ export function CreateQuiz() {
 
       if (categoryInput && titleInput) {
         categoryInput.value = quiz.category;
-        categoryInput.value = quiz.title;
+        titleInput.value = quiz.title;
       }
 
       const questionIds = quiz.questions.map((_, index) => index + 1);
@@ -216,8 +215,6 @@ export function CreateQuiz() {
       return;
     }
 
-    
-
     const questionData = questions.map((questionNum) => {
       const termInput = document.getElementById(`term-${questionNum}`);
       const definitionInput = document.getElementById(
@@ -247,7 +244,6 @@ export function CreateQuiz() {
     const updatedQuizzes = { ...userQuizzes };
     let updatedQuiz = null;
     let originalCategory = null;
-
 
     Object.keys(updatedQuizzes).forEach((cat) => {
       const quizIndex = updatedQuizzes[cat].findIndex(
