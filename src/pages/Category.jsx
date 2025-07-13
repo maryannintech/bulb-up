@@ -101,9 +101,10 @@ export function Category() {
   return (
     <>
       <div className="mt-5 animation-soft-pop-in">
-        <p className="text-center text-orange italic sm:text-xl font-medium">
-          Set your preference
+        <p className="text-center text-orange italic sm:text-xl font-medium px-5">
+          Set your preference. Then choose what quiz you want to take
         </p>
+
         <div className="flex justify-evenly items-center mt-4 flex-wrap px-15">
           <div className="flex flex-col items-center mb-2">
             <label htmlFor="difficulty">Set difficulty</label>
@@ -166,7 +167,6 @@ export function Category() {
                 </button>
               )}
             </div>
-            <p className="text-center mt-4 sm:text-xl text-[var(--orange-color)] italic">Then choose what quiz you want to take</p>
           </div>
         </div>
 
@@ -176,7 +176,9 @@ export function Category() {
               {searchResults.length > 0 ? (
                 <>
                   <div className="flex items-center justify-between">
-                    <p>Search results for: "{searchCategory}"</p>
+                    <p className="mb-3 text-lg font-medium text-gray-700">
+                      Search results for: "{searchCategory}"
+                    </p>
                   </div>
                   <div className="flex gap-5 mt-2 items-center overflow-x-auto flex-wrap">
                     {searchResults.map((cat) => (

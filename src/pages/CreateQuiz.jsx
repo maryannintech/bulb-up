@@ -113,7 +113,7 @@ export function CreateQuiz() {
     categoryInput.value = "";
     titleInput.value = "";
 
-    setEditFeedback(`Quiz "${newQuiz.title}" has been saved successfully.`);
+    setEditFeedback(`Quiz "${newQuiz.title}" has been created successfully.`);
     setTimeout(() => {
       setEditFeedback("");
     }, 2000);
@@ -122,7 +122,6 @@ export function CreateQuiz() {
   const navigateUserQuiz = useNavigate();
 
   function handleUserCategoryClick(quiz) {
-    console.log("Quiz clicked:", quiz);
     navigateUserQuiz("/UserQuiz", {
       state: {
         categoryColor: quiz.color,
@@ -348,7 +347,7 @@ export function CreateQuiz() {
 
   function clearSearch() {
     setSearchCategory("");
-    setSearchResults([]);
+    setSearchResults({});
     document.getElementById("search-category").value = "";
   }
 
@@ -536,9 +535,14 @@ export function CreateQuiz() {
                   <>
                     <div className="flex items-center pl-5 sm:pl-10 mb-5">
                       <div className="overflow-x-auto">
-                        {searchCategory && searchResults.length > 0 ? (
+                        {searchCategory ? (
                           Object.keys(searchResults).length > 0 ? (
-                            renderQuizCards(searchResults)
+                            <>
+                              <p className="mb-3 text-lg font-medium text-gray-700">
+                                Search results for: "{searchCategory}"
+                              </p>
+                              {renderQuizCards(searchResults)}
+                            </>
                           ) : (
                             <>
                               <p className="text-red-500 mt-2">

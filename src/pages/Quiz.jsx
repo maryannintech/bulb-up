@@ -89,7 +89,6 @@ export function Quiz() {
           })
         );
       } catch (error) {
-        console.error("Error fetching quiz data:", error);
         setError(error.message);
       } finally {
         setLoading(false);
