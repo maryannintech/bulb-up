@@ -2,6 +2,10 @@
 
 A modern React web application for creating and taking custom quizzes. Powered by Open Trivia Database API with local storage for seamless quiz management.
 
+# 🌐 Live Demo
+
+[🚀 Try Bulb Up Live](https://maryannintech.github.io/bulb-up)
+
 > **Note**: This is my first React project! The code might be a bit messy as I was learning, but I gained valuable experience with conditional rendering and React fundamentals. 🚀
 
 ## ✨ Features
