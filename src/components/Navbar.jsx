@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import "../styles/Navbar.css";
+import lightBulbImage from "../../public/images/light-bulb.png";
 
 export function Navbar() {
   return (
@@ -10,11 +11,11 @@ export function Navbar() {
             Bulb <span className="block text-yellow">Up</span>
           </p>
           <img
-            src="/images/light-bulb.png"
+            src={lightBulbImage}
             alt="Light bulb logo"
             className="w-18 rotate-20 relative ml-3"
           ></img>
-        </div >
+        </div>
         <div className="nav-bar-buttons flex justify-center gap-4 items-center mt-4 flex-wrap">
           <Link to={"/"}>
             <button className="nav-bar-button">Home</button>
