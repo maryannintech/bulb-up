@@ -16,12 +16,15 @@ export function CreateQuiz() {
     JSON.parse(localStorage.getItem("userQuizzes") || "{}")
   );
   const [editFeedback, setEditFeedback] = useState("");
+  const [isEditingQuiz, setIsEditingQuiz] = useState(false);
 
   function handleMakeQuiz() {
     if (makeQuiz) {
       setMakeQuiz(false);
       setQuestions([1]);
       setNextQuestionId(2);
+      setIsEditingQuiz(false);
+      sessionStorage.removeItem("editingQuizId"); // Clear editing state
     } else {
       setMakeQuiz(true);
       setEditQuiz(false);
@@ -164,6 +167,156 @@ export function CreateQuiz() {
     }
   }
 
+  function handleEditButton(quiz) {
+    setMakeQuiz(true);
+    setEditQuiz(false);
+    setIsEditingQuiz(true);
+
+    // Store which quiz we're editing
+    sessionStorage.setItem("editingQuizId", quiz.id.toString());
+
+    setTimeout(() => {
+      const categoryInput = document.getElementById("category-input");
+      const titleInput = document.getElementById("title-input");
+
+      if (categoryInput && titleInput) {
+        categoryInput.value = quiz.category;
+        categoryInput.value = quiz.title;
+      }
+
+      const questionIds = quiz.questions.map((_, index) => index + 1);
+      setQuestions(questionIds);
+      setNextQuestionId(questionIds.length + 1);
+
+      setTimeout(() => {
+        quiz.questions.forEach((question, index) => {
+          const termInput = document.getElementById(`term-${index + 1}`);
+          const definitionInput = document.getElementById(
+            `definition-${index + 1}`
+          );
+
+          if (termInput && definitionInput) {
+            termInput.value = question.term;
+            definitionInput.value = question.definition;
+          }
+        });
+      }, 100);
+    }, 100);
+  }
+
+  function handleUpdateButton() {
+    const categoryInput = document.getElementById("category-input");
+    const titleInput = document.getElementById("title-input");
+
+    const category = capitalizeFirstLetter(categoryInput.value.trim());
+    const title = capitalizeFirstLetter(titleInput.value.trim());
+
+    if (!category || !title) {
+      alert("Please fill in all fields before updating the quiz.");
+      return;
+    }
+
+    
+
+    const questionData = questions.map((questionNum) => {
+      const termInput = document.getElementById(`term-${questionNum}`);
+      const definitionInput = document.getElementById(
+        `definition-${questionNum}`
+      );
+
+      return {
+        term: capitalizeFirstLetter(termInput?.value.trim()) || "",
+        definition: capitalizeFirstLetter(definitionInput?.value.trim()) || "",
+      };
+    });
+
+    const incompleteQuestions = questionData.some(
+      (q) => !q.term || !q.definition
+    );
+    if (incompleteQuestions) {
+      alert("Please fill in all terms and definitions before updating.");
+      return;
+    }
+
+    const editingQuizId = sessionStorage.getItem("editingQuizId");
+    if (!editingQuizId) {
+      alert("Error: No quiz selected for editing.");
+      return;
+    }
+
+    const updatedQuizzes = { ...userQuizzes };
+    let updatedQuiz = null;
+    let originalCategory = null;
+
+
+    Object.keys(updatedQuizzes).forEach((cat) => {
+      const quizIndex = updatedQuizzes[cat].findIndex(
+        (q) => q.id === parseInt(editingQuizId)
+      );
+      if (quizIndex !== -1) {
+        originalCategory = cat;
+        const originalQuiz = updatedQuizzes[cat][quizIndex];
+
+        updatedQuiz = {
+          ...originalQuiz,
+          category: category,
+          title: title,
+          questions: questionData,
+          updatedAt: new Date().toISOString(),
+        };
+
+        if (cat !== category) {
+          // Remove from old category
+          updatedQuizzes[cat].splice(quizIndex, 1);
+          if (updatedQuizzes[cat].length === 0) {
+            delete updatedQuizzes[cat];
+          }
+
+          updatedQuizzes[category] = [
+            ...(updatedQuizzes[category] || []),
+            updatedQuiz,
+          ];
+        } else {
+          updatedQuizzes[cat][quizIndex] = updatedQuiz;
+        }
+      }
+    });
+
+    if (!updatedQuiz) {
+      alert("Error: Quiz not found for updating.");
+      return;
+    }
+
+    setUserQuizzes(updatedQuizzes);
+    localStorage.setItem("userQuizzes", JSON.stringify(updatedQuizzes));
+
+    sessionStorage.removeItem("editingQuizId");
+    setIsEditingQuiz(false);
+
+    setQuestions([1]);
+    setNextQuestionId(2);
+    setMakeQuiz(false);
+
+    categoryInput.value = "";
+    titleInput.value = "";
+
+    questions.forEach((questionNum) => {
+      const termInput = document.getElementById(`term-${questionNum}`);
+      const definitionInput = document.getElementById(
+        `definition-${questionNum}`
+      );
+      if (termInput) termInput.value = "";
+      if (definitionInput) definitionInput.value = "";
+    });
+
+    setEditFeedback(
+      `Quiz "${updatedQuiz.title}" has been updated successfully.`
+    );
+    setTimeout(() => {
+      setEditFeedback("");
+    }, 2000);
+  }
+
   return (
     <>
       <div className="mt-4 animation-soft-pop-in">
@@ -269,12 +422,21 @@ export function CreateQuiz() {
                   ))}
                 </div>
                 <div className="flex flex-col justify-center align-center">
-                  <button
-                    className="cursor-pointer text-[var(--bg-color)] flex justify-start items-center gap-3 text-xl mt-5 ml-5 active:bg-[var(--orange-color)] hover:bg-[var(--orange-color)] hover:text-white hover:scale-105 transition-all duration-300 ease-in-out rounded-lg py-2 px-4 w-fit"
-                    onClick={handleSaveQuiz}
-                  >
-                    Save quiz <i className="bx bx-save"></i>
-                  </button>
+                  {isEditingQuiz ? (
+                    <button
+                      className="cursor-pointer text-[var(--bg-color)] flex justify-start items-center gap-3 text-xl mt-5 ml-5 active:bg-[var(--orange-color)] hover:bg-[var(--orange-color)] hover:text-white hover:scale-105 transition-all duration-300 ease-in-out rounded-lg py-2 px-4 w-fit"
+                      onClick={handleUpdateButton}
+                    >
+                      Update quiz <i className="bx  bx-edit"></i>
+                    </button>
+                  ) : (
+                    <button
+                      className="cursor-pointer text-[var(--bg-color)] flex justify-start items-center gap-3 text-xl mt-5 ml-5 active:bg-[var(--orange-color)] hover:bg-[var(--orange-color)] hover:text-white hover:scale-105 transition-all duration-300 ease-in-out rounded-lg py-2 px-4 w-fit"
+                      onClick={handleSaveQuiz}
+                    >
+                      Create quiz <i className="bx bx-save"></i>
+                    </button>
+                  )}
                 </div>
               </div>
             </>
@@ -309,7 +471,10 @@ export function CreateQuiz() {
                                   {editQuiz ? (
                                     <div className="animate-fade-in">
                                       <div className="flex gap-2 justify-start items-center mt-4 text-[var(--bg-color)] transform transition-all duration-500 ease-in-out ">
-                                        <button className="cursor-pointer bg-[#3CB371] rounded-full flex justify-center items-center px-4 py-1 hover:bg-[#2E8B57] hover:scale-105 hover:shadow-lg transition-all duration-300 ease-in-out transform hover:-translate-y-1">
+                                        <button
+                                          className="cursor-pointer bg-[#3CB371] rounded-full flex justify-center items-center px-4 py-1 hover:bg-[#2E8B57] hover:scale-105 hover:shadow-lg transition-all duration-300 ease-in-out transform hover:-translate-y-1"
+                                          onClick={() => handleEditButton(quiz)}
+                                        >
                                           <i className="bx bx-edit-alt mr-1"></i>{" "}
                                           Edit
                                         </button>
