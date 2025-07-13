@@ -166,6 +166,7 @@ export function Category() {
                 </button>
               )}
             </div>
+            <p className="text-center mt-4 sm:text-xl text-[var(--orange-color)] italic">Then choose what quiz you want to take</p>
           </div>
         </div>
 

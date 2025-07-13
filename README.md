@@ -46,7 +46,7 @@ Powered by [Open Trivia Database API](https://opentdb.com/):
 
 ## 📄 License
 
-MIT License - see [LICENSE](LICENSE) file for details.
+MIT License
 
 ---
 
